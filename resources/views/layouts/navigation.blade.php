@@ -1,7 +1,7 @@
 <div class="navbar bg-base-100 shadow-sm z-10">
 
     <div class="navbar-start ml-10">
-        <x-application-logo class="w-14 h-14 fill-current text-gray-500 md:flex hidden" />
+        <x-application-logo class="w-36 h-16 fill-current text-gray-500 md:flex hidden" />
     </div>
     <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
@@ -31,7 +31,7 @@
             @else
                 <li><a href="{{ route('student.attendance.index') }}">Absen</a></li>
                 <li><a href="{{ route('profile.edit') }}">Profile</a></li>
-                <li><a href="{{ route('student.subject.index') }}">Mapel</a></li>
+                {{-- <li><a href="{{ route('student.subject.index') }}">Mapel</a></li> --}}
                 <li><a href="{{ route('student.history.index') }}">Riwayat Absen</a></li>
             @endhasanyrole
         </ul>

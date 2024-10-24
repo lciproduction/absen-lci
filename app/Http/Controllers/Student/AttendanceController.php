@@ -33,7 +33,7 @@ class AttendanceController extends Controller
         $parts = explode(',', $coord->coordinate);
         $centerLat = (float) trim($parts[0]);
         $centerLng = (float) trim($parts[1]);
-        $radius = 0.5;
+        $radius = 1.5;
 
         $absenLat = $request->latitude ?? NULL;
         $absenLng = $request->longitude ?? NULL;
