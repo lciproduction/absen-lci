@@ -23,26 +23,32 @@
                         <x-input.input-error :messages="$errors->get('photo')" class="mt-2" />
                     </div>
 
-                    <div class="mt-4">
-                        <x-input.input-label for="nisn" :value="__('NISN')" />
-                        <x-input.text-input id="nisn" class="mt-1 w-full" type="number" name="nisn"
+                    <div class="mt-4 ">
+                        <x-input.input-label for="nisn" :value="__('Password')" />
+                        <x-input.text-input id="nisn" class="mt-1 w-full" type="password" name="nisn"
                             :value="old('nisn')" required autofocus autocomplete="nisn" />
                         <x-input.input-error :messages="$errors->get('nisn')" class="mt-2" />
                     </div>
                     <div class="mt-4">
-                        <x-input.input-label for="name" :value="__('Nama Siswa')" />
+                        <x-input.input-label for="name" :value="__('User Name')" />
+                        <x-input.text-input id="username" class="mt-1 w-full" type="text" name="username"
+                            :value="old('username')" required autofocus autocomplete="username" />
+                        <x-input.input-error :messages="$errors->get('username')" class="mt-2" />
+                    </div>
+                    <div class="mt-4">
+                        <x-input.input-label for="name" :value="__('Nama Mahasiswa')" />
                         <x-input.text-input id="name" class="mt-1 w-full" type="text" name="name"
                             :value="old('name')" required autofocus autocomplete="name" />
                         <x-input.input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div class="mt-4">
-                        <x-input.input-label for="rombel" :value="__('Kelas')" />
+                        <x-input.input-label for="rombel" :value="__('Divisi')" />
                         <x-input.select-input id="rombel" class="mt-1 w-full" type="text" name="rombel" required
                             autofocus autocomplete="rombel">
-                            <option value="" disabled selected>Pilih Kelas</option>
-                            @foreach ($rombels as $rombel)
-                                <option value="{{ $rombel['id'] }}"
-                                    {{ old('rombel') == $rombel['id'] ? ' selected' : ' ' }}>
+                            <option value="" disabled selected>Pilih Divisi</option>
+                            @foreach ($divisions as $rombel)
+                                <option value="{{ $rombel['name'] }}"
+                                    {{ old('rombel') == $rombel['name'] ? ' selected' : ' ' }}>
                                     {{ $rombel['name'] }}</option>
                             @endforeach
                         </x-input.select-input>
@@ -61,11 +67,20 @@
                         </x-input.select-input>
                     </div>
 
-                    <div class="mt-4">
-                        <x-input.input-label for="phone" :value="__('No Telpon')" />
-                        <x-input.text-input id="phone" class="mt-1 w-full" type="number" name="phone"
-                            :value="old('phone')" required autofocus autocomplete="phone" />
+
+                      <div class="mt-4">
+                        <x-input.input-label for="phone" :value="__('Asal Universitas')" />
+                        <x-input.select-input id="phone" class="mt-1 w-full" type="text" name="phone" required
+                            autofocus autocomplete="phone">
+                            <option value="" disabled selected>Pilih Universitas</option>
+                            @foreach ($university as $phone)
+                                <option value="{{ $phone['name'] }}"
+                                    {{ old('phone') == $phone['name'] ? ' selected' : ' ' }}>
+                                    {{ $phone['name'] }}</option>
+                            @endforeach
+                        </x-input.select-input>
                         <x-input.input-error :messages="$errors->get('phone')" class="mt-2" />
+
                     </div>
 
                     <div class="mt-4">
@@ -73,6 +88,23 @@
                         <x-input.text-input id="point" class="mt-1 w-full" type="number" name="point"
                             :value="old('point')" required autofocus autocomplete="point" />
                         <x-input.input-error :messages="$errors->get('point')" class="mt-2" />
+                    </div>
+
+                    <!-- Checkbox untuk Hari Wajib -->
+                    <div class="mt-4">
+                        <x-input.input-label for="days[]" :value="__('Hari Wajib')" />
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 mt-1">
+                            @foreach($days as $day)
+                                <div class="form-control">
+                                    <label class=" cursor-pointer">
+                                        <input type="checkbox" name="days[]" value="{{ $day->id }}" class="checkbox"
+                                            {{ in_array($day->id, old('days', [])) ? 'checked' : '' }}>
+                                        <span class="label-text text-[16px] pl-2">{{ $day->name }} {{$day->id}}</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        <x-input.input-error :messages="$errors->get('days')" class="mt-2" />
                     </div>
 
                     <div class="col-span-2">

@@ -88,3 +88,7 @@
         </div>
     </div>
 </section>
+<section class="py-20 p-8">
+<canvas id="chart" width="400" height="400"></canvas>
+
+</section>

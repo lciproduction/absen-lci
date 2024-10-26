@@ -10,6 +10,7 @@
                 @endif
 
                 <div class="flex justify-start space-x-4">
+
                     <a href="{{ route('student.create') }}">
                         <x-button.primary-button>
                             <i class="fa-solid fa-plus"></i>
@@ -38,30 +39,27 @@
 
                 </div>
                 <div class="flex justify-start space-x-4">
-                    <div class="mt-4">
-                        <x-input.select-input id="kelas" class="mt-1 w-full" type="text" name="kelas">
-                            <option value="" disabled selected>Pilih Kelas</option>
-                            <option value="All">Semua
-                            </option>
-                            <option value="X">X
-                            </option>
-                            <option value="XI">XI
-                            </option>
-                            <option value="XII">XII
-                            </option>
-                        </x-input.select-input>
-                    </div>
-                    <div class="mt-4">
+                 <div class="mt-4">
+                <x-input.select-input id="divisi" class="mt-1 w-full" name="divisi">
+                    <option value="All">Semua</option>
+                    <option value="Project Management">Project Management</option>
+                    <option value="Comprel">Comprel</option>
+                    <option value="Govrel">Govrel</option>
+                    <option value="Design Grafis">Design Grafis</option>
+                    <option value="Social Media Specialist">Social Media Specialist</option>
+                </x-input.select-input>
+                </div>
+                    {{-- <div class="mt-4">
                         <x-input.select-input id="jurusan" class="mt-1 w-full" type="text" name="jurusan">
                             <option value="" disabled selected>Pilih Jurusan</option>
                             <option value="All">Semua
                             </option>
-                            @foreach ($majors as $major)
-                                <option value="{{ $major->id }}">{{ $major->acronym }}
+                            @foreach ($university as $university)
+                                <option value="{{ $university->name }}">{{ $university->acronym }}
                                 </option>
                             @endforeach
                         </x-input.select-input>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="relative overflow-x-auto mt-5">
                     <table id="students" class="table">
@@ -71,13 +69,13 @@
                                     No
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    NISN
+                                    Nama Mahasiswa
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Nama Siswa
+                                    Universitas
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Kelas
+                                    Divisi
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
@@ -92,63 +90,40 @@
     </div>
 
     <x-slot name="script">
-        <script>
-            $(document).ready(function() {
-                $('#export-button').on('click', function() {
-                    // Ambil nilai dari elemen #jurusan, #from, dan #to
-                    let jurusan = $('#jurusan').val();
-                    let kelas = $('#kelas').val();
-
-                    // Set nilai input field pada form
-                    $('#export-form #jurusanExport').val(jurusan);
-                    $('#export-form #kelasExport').val(kelas);
-                });
-
-
-                let dataTable = $('#students').DataTable({
-                    buttons: [
-                        // 'copy', 'excel', 'csv', 'pdf', 'print',
-                        'colvis'
-                    ],
-                    processing: true,
-                    search: {
-                        return: true
-                    },
-                    serverSide: true,
-                    ajax: {
-                        url: '{{ route('student.index') }}',
-                        data: function(d) {
-                            d.jurusan = $('#jurusan').val();
-                            d.kelas = $('#kelas').val();
-                        }
-                    },
-                    columns: [{
-                            data: null,
-                            name: 'no',
-                            orderable: false,
-                            searchable: false,
-                            render: function(data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1;
-                            }
-                        },
-                        {
-                            data: 'nisn',
-                            name: 'nisn'
-                        },
-                        {
-                            data: 'name',
-                            name: 'name'
-                        },
-                        {
-                            data: null,
-                            render: function(data) {
-                                return data.grade.name + ' ' + data.major.acronym + ' ' + data.group
-                                    .number;
-                            },
-                            orderable: false,
-                            searchable: false,
-                        },
-                        {
+       <script>
+    $(document).ready(function() {
+        let dataTable = $('#students').DataTable({
+            processing: true,
+            serverSide: true,
+             ajax: {
+                url: '{{ route('student.index') }}',
+                data: function(d) {
+                    d.divisi = $('#divisi').val(); // Kirim nilai divisi yang dipilih
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    name: 'no',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                {
+                    data: 'nama_mahasiswa',
+                    name: 'nama_mahasiswa'
+                },
+                {
+                    data: 'phone',
+                    name: 'phone'
+                },
+                {
+                    data: 'divisi',
+                    name: 'divisi'
+                },
+                {
                             data: 'action',
                             name: 'action',
                             orderable: false,
@@ -166,12 +141,15 @@
                             `;
                             }
                         },
-                    ]
-                });
-                $('#jurusan, #kelas').change(function() {
-                    dataTable.ajax.reload();
-                });
-            });
-        </script>
+            ]
+        });
+
+        // Reload DataTable ketika dropdown divisi berubah
+        $('#divisi').change(function() {
+            dataTable.ajax.reload();
+        });
+    });
+</script>
+
     </x-slot>
 </x-app-layout>

@@ -17,8 +17,8 @@
                     <div class="stat place-items-center">
                         <div class="stat-title text-lg">Biodata</div>
                         <div class="stat-value text-base">{{ $attendance->student->name }}</div>
-                        <div class="stat-desc">{{ $attendance->student->grade->name }}
-                            {{ $attendance->student->major->acronym }} {{ $attendance->student->group->number }}</div>
+                        <div class="stat-desc">{{ $attendance->student->divisi }}
+                          </div>
                     </div>
 
                     <div class="stat place-items-center">

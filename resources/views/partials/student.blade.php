@@ -1,4 +1,4 @@
-<section class="py-20">
+    <section class="py-20">
     <x-card.card-default class="static bg-green-100">
         <div class="w-full h-full">
             <div class="flex gap-6 w-full flex-col justify-center items-center lg:flex-row">

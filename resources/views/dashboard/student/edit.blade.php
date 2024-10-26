@@ -43,8 +43,8 @@
                         <x-input.select-input id="rombel" class="mt-1 w-full" type="text" name="rombel" required
                             autofocus autocomplete="rombel">
                             <option value="" disabled selected>Pilih Kelas</option>
-                            @foreach ($rombels as $rombel)
-                                <option value="{{ $rombel['id'] }}"
+                            @foreach ($divisions as $rombel)
+                                <option value="{{ $rombel['name'] }}"
                                     {{ old('rombel', $student->grade_id . ' ' . $student->major_id . ' ' . $student->group_id) == $rombel['id'] ? ' selected' : ' ' }}>
                                     {{ $rombel['name'] }}</option>
                             @endforeach

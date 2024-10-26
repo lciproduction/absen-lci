@@ -15,16 +15,15 @@ class StudentSeeder extends Seeder
     {
         DB::table('students')->insert([
             'user_id' => 3,
-            'grade_id' => 1,
-            'major_id' => 1,
-            'group_id' => 1,
             'name' => 'Muhammad Fitra Fajar Rusamsi',
-            'nisn' => 1000,
+            'username' => 'fajar17',
+            'nisn' => "123123",
             'gender' => 'Laki - Laki',
             'phone' => '6281385931773',
             'point' => 100,
             'created_at' => now(),
             'updated_at' => now(),
+            'divisi' => 'DG'
         ]);
     }
 }

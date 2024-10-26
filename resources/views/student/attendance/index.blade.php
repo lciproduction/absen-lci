@@ -15,8 +15,8 @@
                     <div id="locationIframe"></div>
 
                     <span class="loading loading-spinner text-primary hidden" id="loading"></span>
-                    <x-button.primary-button id="send" class="mt-3 hidden">Absen</x-button.primary-button>
-                    <x-button.primary-button id="sendMapel" class="mt-3 hidden">Absen</x-button.primary-button>
+                    <x-button.primary-button id="HadirWFO" class="mt-3 hidden">Absen</x-button.primary-button>
+                    <x-button.primary-button id="HadirWFH" class="mt-3 hidden">Absen</x-button.primary-button>
                     <x-button.success-button id="sendPermit" class="mt-3 hidden">Absen</x-button.success-button>
                     <x-button.warning-button id="sendSick" class="mt-3 hidden">Absen</x-button.warning-button>
                     <p id="note-error" class="hidden font-light text-gray-500 sm:text-lg dark:text-gray-400">

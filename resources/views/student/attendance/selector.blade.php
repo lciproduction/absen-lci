@@ -3,8 +3,8 @@
     <x-input.select-input id="status" class="mt-1 w-full" type="text" name="status" required autofocus
         autocomplete="status">
         <option value="" disabled selected>Pilih Status Kehadiran</option>
-        <option value="Hadir">Hadir</option>
-        <option value="Absen Mapel">Absen Mapel</option>
+        <option value="HadirWFO">Hadir WFO</option>
+        <option value="HadirWFH">Hadir WFH</option>
         <option value="Izin">Izin</option>
         <option value="Sakit">Sakit</option>
     </x-input.select-input>
