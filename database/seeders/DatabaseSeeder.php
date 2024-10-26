@@ -16,12 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            GradeSeeder::class,
-            MajorSeeder::class,
-            GroupSeeder::class,
             StudentSeeder::class,
             TeacherSeeder::class,
             TimeSeeder::class,
+            DaysTableSeeder::class
         ]);
     }
 }

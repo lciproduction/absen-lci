@@ -14,8 +14,7 @@
                             <ul class="p-2 z-10 w-72">
                                 <li><a href="{{ route('student.index') }}">Data Peserta MSIB Muda Berkreaksi</a></li>
                                 <li><a href="{{ route('teacher.index') }}">Data ADHOC</a></li>
-                                <li><a href="{{ route('subject.index') }}">Data Mapel</a></li>
-                                <li><a href="{{ route('schedule.index') }}">Jadwal Mapel</a></li>
+
                             </ul>
                         </details>
                     </li>

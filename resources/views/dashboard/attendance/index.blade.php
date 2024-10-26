@@ -43,9 +43,7 @@
                                 <th scope="col" class="px-6 py-3">
                                     Status
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Nama Mapel
-                                </th>
+
                                 <th scope="col" class="px-6 py-3">
                                     Lokasi / File
                                 </th>
@@ -110,15 +108,7 @@
                             data: 'status',
                             name: 'status'
                         },
-                        {
-                            data: null,
-                            render: function(data) {
 
-                                return data?.schedule?.subject?.name || '-';
-                            },
-                            orderable: false,
-                            searchable: false,
-                        },
                         {
                             data: null,
                             render: function(data, type, full, meta) {

@@ -72,9 +72,9 @@ class AttendanceExport implements FromQuery, WithMapping, WithHeadings, WithChun
         return [
             $this->rowNumber,
             $attendance->student->name,
-            $attendance->student->grade->name . ' ' . $attendance->student->major->acronym . ' ' . $attendance->student->group->number,
+            $attendance->student->phone,
+            $attendance->student->phone,
             $attendance->status,
-            $attendance->schedule->subject->name ?? '-',
             $attendance->created_at,
         ];
     }
@@ -83,9 +83,9 @@ class AttendanceExport implements FromQuery, WithMapping, WithHeadings, WithChun
         return [
             'No',
             'Nama Siswa',
-            'Kelas',
+            'Asal Universitas',
+            'Divisi',
             'Status',
-            'Mapel',
             'Tanggal',
         ];
     }

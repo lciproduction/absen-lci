@@ -33,4 +33,8 @@ class Attendance extends Model
     {
         return $this->belongsTo(Schedule::class, 'schedule_id');
     }
+    public function day(): BelongsTo
+    {
+        return $this->belongsTo(Day::class, 'day_id');
+    }
 }

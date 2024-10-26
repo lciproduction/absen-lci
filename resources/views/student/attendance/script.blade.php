@@ -19,10 +19,10 @@
             const statusValue = status.value;
             hideAll();
             switch (statusValue) {
-                case 'Hadir':
+                case 'HadirWFO':
                     showLocation();
                     break;
-                case 'Absen Mapel':
+                case 'HadirWFH':
                     showLocationMapel();
                     break;
                 case 'Izin':
@@ -37,18 +37,18 @@
         }
 
         function hideAll() {
-            $('#fileUpload, #permit, #send, #sendMapel, #sendPermit, #sendSick, #locationSection, #toast-top-left')
+            $('#fileUpload, #permit, #HadirWFO, #HadirWFH, #sendPermit, #sendSick, #locationSection, #toast-top-left')
                 .hide();
             locationIframe.innerHTML = ''; // Hapus iframe saat status berubah
         }
 
         function showLocation() {
-            $('#locationSection, #send').show();
+            $('#locationSection, #hadirWFO').show();
             initializeLocation();
         }
 
         function showLocationMapel() {
-            $('#locationSection, #sendMapel').show();
+            $('#locationSection, #HadirWFH').show();
             initializeLocationMapel();
         }
 
@@ -90,7 +90,7 @@
         }
 
         function initializeLocation() {
-            const btn = document.getElementById('send');
+            const btn = document.getElementById('HadirWFO');
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const latitude = position.coords.latitude;
@@ -117,7 +117,7 @@
         }
 
         function initializeLocationMapel() {
-            const btn = document.getElementById('sendMapel');
+            const btn = document.getElementById('HadirWFH');
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const latitude = position.coords.latitude;

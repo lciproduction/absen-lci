@@ -12,10 +12,12 @@ return new class extends Migration {
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->foreignId('schedule_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('day_id')->constrained()->onDelete('cascade');
             $table->string('coordinate')->nullable();
-            $table->string('status')->comment('masuk,pulang,mapel(),izin,sakit,terlambat');
+            $table->string('status')->comment('masuk,pulang,wfh,izin,sakit,terlambat');
             $table->string('note')->nullable();
             $table->timestamps();
         });
@@ -26,6 +28,9 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('attendances');
+        Schema::table('attendances', function (Blueprint $table) {
+            $table->dropForeign(['day_id']);
+            $table->dropColumn('day_id');
+        });
     }
 };

@@ -25,7 +25,7 @@
                         <img class="imgPreview h-auto max-w-lg mx-auto hidden" alt="logo">
                         <x-input.input-label for="logo" :value="__('Logo')" />
                         <x-input.input-file id="logo" class="mt-1 w-full" type="file" name="logo"
-                            :value="old('logo', $setting?->logo)" autofocus autocomplete="logo" onchange="previewImage()" />
+                            :value="old('logo', $setting?->logo)" autofocus autocomplete="logo" onchange="previewImage()" required />
                         <x-input.input-error :messages="$errors->get('logo')" class="mt-2" />
                     </div>
 

@@ -17,6 +17,7 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 class StudentExport implements FromQuery, WithMapping, WithHeadings, WithChunkReading, WithStyles, ShouldAutoSize, WithProperties
 {
     use Exportable;
+
     private $major;
     private $grade;
     private $rowNumber = 0;
@@ -43,17 +44,17 @@ class StudentExport implements FromQuery, WithMapping, WithHeadings, WithChunkRe
 
     public function query()
     {
-        $query = Student::with(['grade', 'major', 'group'])->select('students.*');
+        // Build the query for filtering students
+        $query = Student::query();
 
+        // Filter by major (divisi) if provided
         if ($this->major != '' && $this->major != 'All') {
-            $query->whereHas('major', function ($q) {
-                $q->where('id', $this->major);
-            });
+            $query->where('divisi', $this->major);
         }
+
+        // Filter by grade (phone) if provided
         if ($this->grade != '' && $this->grade != 'All') {
-            $query->whereHas('grade', function ($q) {
-                $q->where('name', $this->grade);
-            });
+            $query->where('phone', $this->grade);
         }
 
         $query->orderBy('name');
@@ -71,26 +72,26 @@ class StudentExport implements FromQuery, WithMapping, WithHeadings, WithChunkRe
         $this->rowNumber++;
         return [
             $this->rowNumber,
-            $student->nisn,
             $student->name,
+            $student->phone,
+            $student->divisi,
             $student->gender,
-            $student->grade->name . ' ' . $student->major->acronym . ' ' . $student->group->number,
         ];
     }
+
     public function headings(): array
     {
         return [
             'No',
-            'NISN',
             'Nama',
-            'JK',
-            'Rombel',
+            'ِAsal Universitas',
+            'Divisi',
+            'Jenis Kelamin',
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        $count = Student::count();
         $styleArray = [
             'borders' => [
                 'allBorders' => [
@@ -99,9 +100,10 @@ class StudentExport implements FromQuery, WithMapping, WithHeadings, WithChunkRe
             ],
             'font' => [
                 'size' => 12,
-                'name' => 'Times New Roman'
+                'name' => 'Times New Roman',
             ],
         ];
+
         $sheet->getStyle('A2:E' . $this->rowNumber + 1)->applyFromArray($styleArray);
         $sheet->getStyle('A1:E1')->applyFromArray([
             'borders' => [
@@ -112,7 +114,7 @@ class StudentExport implements FromQuery, WithMapping, WithHeadings, WithChunkRe
             'font' => [
                 'bold' => true,
                 'size' => 13,
-                'name' => 'Times New Roman'
+                'name' => 'Times New Roman',
             ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,

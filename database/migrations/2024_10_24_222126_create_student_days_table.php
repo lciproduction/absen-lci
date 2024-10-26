@@ -9,20 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
-{
-    Schema::create('student_days', function (Blueprint $table) {
-        $table->id();
-        $table->unsignedBigInteger('student_id');
-        $table->unsignedBigInteger('day_id');
-        $table->boolean('is_mandatory')->default(0); // Hari wajib seperti Jumat
-        $table->timestamps();
-
-        // Foreign keys
-        $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-        $table->foreign('day_id')->references('id')->on('days')->onDelete('cascade');
-    });
-}
+ public function up(): void
+    {
+        Schema::create('student_days', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('student_id')->constrained()->onDelete('cascade');
+            $table->foreignId('day_id')->constrained()->onDelete('cascade');
+            $table->boolean('is_mandatory')->default(0);  // Menandakan apakah hari ini wajib (misalnya Jumat)
+            $table->timestamps();
+        });
+    }
 
 
 
