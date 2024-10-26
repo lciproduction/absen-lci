@@ -102,10 +102,8 @@
                     <span class="btm-nav-label text-xs">Data Master</span>
                 </div>
                 <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                    <li><a href="{{ route('student.index') }}">Data Siswa</a></li>
-                    <li><a href="{{ route('teacher.index') }}">Data Guru</a></li>
-                    <li><a href="{{ route('subject.index') }}">Data Mapel</a></li>
-                    <li><a href="{{ route('schedule.index') }}">Jadwal Mapel</a></li>
+                    <li><a href="{{ route('student.index') }}">Data Peserta MSIB Muda Berkreaksi</a></li>
+                    <li><a href="{{ route('teacher.index') }}">Data ADHOC</a></li>
                 </ul>
             </div>
         @endrole
@@ -126,10 +124,7 @@
                 <i class="fa-solid fa-house" class="h-5 w-5"></i>
                 <span class="btm-nav-label text-xs">Absen</span>
             </a>
-            <a href="{{ route('student.subject.index') }}" class="{{ Request::is('siswa/subject') ? 'active' : '' }}">
-                <i class="fa-solid fa-house" class="h-5 w-5"></i>
-                <span class="btm-nav-label text-xs">Mapel</span>
-            </a>
+
             <a href="{{ route('student.history.index') }}" class="{{ Request::is('siswa/history') ? 'active' : '' }}">
                 <i class="fa-solid fa-house" class="h-5 w-5"></i>
                 <span class="btm-nav-label text-xs">Riwayat Absen</span>

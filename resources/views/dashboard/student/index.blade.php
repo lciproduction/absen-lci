@@ -3,13 +3,13 @@
 <x-app-layout>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-card.card-default class="static">
+        <div class="w-full mx-auto sm:px-6 lg:px-8 ">
+            <x-card.card-default class="static mx-auto">
                 @if (session()->has('success'))
                     <x-alert.success :message="session('success')" />
                 @endif
 
-                <div class="flex justify-start space-x-4">
+                <div class="flex flex-col justify-start gap-2 ">
 
                     <a href="{{ route('student.create') }}">
                         <x-button.primary-button>
@@ -17,7 +17,10 @@
                             Tambah Data
                         </x-button.primary-button>
                     </a>
-                    <x-form action="{{ route('student.import') }}" enctype="multipart/form-data">
+
+                    {{-- ini untuk import data  --}}
+
+                    {{-- <x-form action="{{ route('student.import') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="relative">
                             <x-input.input-file type="file" id="file" name="file" required />
@@ -26,7 +29,7 @@
                                 Import
                             </x-button.success-button>
                         </div>
-                    </x-form>
+                    </x-form> --}}
                     <x-form id="export-form" action="{{ route('student.export') }}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" id="jurusanExport" name="jurusanExport" value="">
@@ -130,14 +133,16 @@
                             searchable: false,
                             render: function(data, type, full, meta) {
                                 return `
-                                <a href="{{ url('/student/${full.id}/edit') }}">
-                                    <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-pen-to-square"></i>Edit</x-button.info-button>
+                                <div class="flex  justify-center items-center gap-2">
+                                    <a class="flex" href="{{ url('/student/${full.id}/edit') }}">
+                                    <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-pen-to-square"></i></x-button.info-button>
                                 </a>
-                                <x-form action="{{ url('/student/${full.id}') }}" style="display: inline;">
+                                <x-form action="{{ url('/student/${full.id}') }}" class="flex">
                                     @csrf
                                     @method('DELETE')
-                                    <x-button.danger-button type="submit" class="btn-sm text-white" onclick="return confirm('Are you sure?')"><i class="fa-regular fa-trash-can"></i>Hapus</x-button.danger-button>
+                                    <x-button.danger-button type="submit" class="btn-sm text-white" onclick="return confirm('Are you sure?')"><i class="fa-regular fa-trash-can"></i></x-button.danger-button>
                                 </x-form>
+                                    </div>
                             `;
                             }
                         },

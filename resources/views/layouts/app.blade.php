@@ -22,8 +22,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-poppins antialiased">
-    <div class="min-h-screen bg-base-100">
+<body class="font-poppins antialiased ">
+    <div class="min-h-screen ">
         @include('layouts.navigation')
 
 

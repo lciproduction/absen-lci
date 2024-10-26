@@ -11,7 +11,7 @@
         const userId = '{{ auth()->user()->student?->id }}';
         const apiUrl = '{{ route('student.attendance.store') }}';
         const roleId = '{{ auth()->user()->role }}';
-        const locationIframe = document.getElementById('locationIframe'); // Tambahkan elemen untuk iframe
+        const locationIframe = document.getElementById('locationIframe');
 
         status.addEventListener('change', handleStatusChange);
 
@@ -37,18 +37,17 @@
         }
 
         function hideAll() {
-            $('#fileUpload, #permit, #HadirWFO, #HadirWFH, #sendPermit, #sendSick, #locationSection, #toast-top-left')
-                .hide();
-            locationIframe.innerHTML = ''; // Hapus iframe saat status berubah
+            $('#fileUpload, #permit, #HadirWFO, #HadirWFH, #sendPermit, #sendSick, #toast-top-left').hide();
+            locationIframe.innerHTML = ''; // Clear iframe when status changes
         }
 
         function showLocation() {
-            $('#locationSection, #hadirWFO').show();
+            $('#HadirWFO').show(); // Show the WFO button correctly
             initializeLocation();
         }
 
         function showLocationMapel() {
-            $('#locationSection, #HadirWFH').show();
+            $('#HadirWFH').show();
             initializeLocationMapel();
         }
 
@@ -76,16 +75,17 @@
         function initializeSick() {
             const btnSakit = document.getElementById('sendSick');
             btnSakit.onclick = function() {
-                const formData = new FormData();
-                const fileInput = document.getElementById('sickFile');
+                // const formData = new FormData();
+                // const fileInput = document.getElementById('sickFile');
 
-                formData.append('id', userId);
-                formData.append('status', status.value);
-                if (fileInput.files.length > 0) {
-                    formData.append('file', fileInput.files[0]);
-                }
+                // formData.append('id', userId);
+                // formData.append('status', status.value);
+                // if (fileInput.files.length > 0) {
+                //     formData.append('file', fileInput.files[0]);
+                // }
 
-                sendFormData(formData, true);
+                // sendFormData(formData, true);
+                alert('incomming..🚀')
             };
         }
 
@@ -102,12 +102,11 @@
                         longitude: longitude,
                     };
 
-                    // Tampilkan iframe dengan peta lokasi
-                    displayLocationIframe(latitude, longitude);
+                    displayLocationIframe(latitude, longitude); // Show the map iframe
 
                     btn.onclick = function() {
                         sendFormData(formData);
-                    }
+                    };
                 },
                 error => {
                     console.error('Geolocation error:', error);
@@ -130,12 +129,11 @@
                         status: status.value,
                     };
 
-                    // Tampilkan iframe dengan peta lokasi
-                    displayLocationIframe(latitude, longitude);
+                    displayLocationIframe(latitude, longitude); // Show the map iframe
 
                     btn.onclick = function() {
                         sendFormData(formData);
-                    }
+                    };
                 },
                 error => {
                     console.error('Geolocation error:', error);
@@ -144,12 +142,9 @@
             );
         }
 
-        // Fungsi untuk menampilkan iframe Google Maps dengan lat dan long
         function displayLocationIframe(latitude, longitude) {
-            const googleMapsUrl =
-                `https://www.google.com/maps?q=${latitude},${longitude}&hl=es;z=14&output=embed`;
-            locationIframe.innerHTML =
-                `<iframe width="100%" height="300" src="${googleMapsUrl}" frameborder="0" allowfullscreen></iframe>`;
+            const googleMapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}&hl=es;z=14&output=embed`;
+            locationIframe.innerHTML = `<iframe width="100%" height="300" src="${googleMapsUrl}" frameborder="0" allowfullscreen></iframe>`;
         }
 
         function sendFormData(data, isFile = false) {

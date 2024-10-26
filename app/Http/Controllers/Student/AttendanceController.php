@@ -56,7 +56,7 @@ class AttendanceController extends Controller
             ->first();
         $existingAttendancePulang = Attendance::where('student_id', $student->id)
             ->whereDate('created_at', $today)
-            ->whereIn('status', ['Absen Pulang WFO', 'Absen Pulang WFH', 'Absen Masuk WFO (Terlambat)', 'Absen Masuk WFH (Terlambat)'])
+            ->whereIn('status', ['Absen Pulang WFO', 'Absen Pulang WFH'])
             ->first();
 
         Log::info('existingAttendanceMasuk:', ['status' => $existingAttendanceMasuk]);
@@ -127,9 +127,6 @@ class AttendanceController extends Controller
                 return response()->json(['message' => $message]);
             }
         } elseif ($request->status === 'HadirWFH') {
-            if ($existingAttendanceMasuk) {
-                return response()->json(['message' => 'Anda sudah absen masuk hari ini. Lanjutkan dengan absen pulang.']);
-            }
             if (!$existingAttendanceMasuk) {
                 // Absen Masuk WFH
                 if ($currentTime->lt($timeInEarly)) {
@@ -158,7 +155,7 @@ class AttendanceController extends Controller
                 if (!$existingAttendanceMasuk) {
                     // Jika belum absen masuk, catat absen masuk terlambat
                     $lateMinutes = $currentTime->diffInMinutes($timeInLate);
-                    $status = 'Absen Masuk WFH (Terlambat)';
+                    $status = 'Absen Masuk WFH';
                     Attendance::create([
                         'student_id' => $student->id,
                         'coordinate' => null,
@@ -176,7 +173,7 @@ class AttendanceController extends Controller
                     $message = 'Absen Pulang WFH Berhasil';
                 } elseif ($currentTime->gt($timeOutLate)) {
                     $lateMinutes = $currentTime->diffInMinutes($timeOutLate);
-                    $status = 'Absen Pulang WFH (Terlambat)';
+                    $status = 'Absen Pulang WFH';
                     $message = 'Absen Pulang WFH berhasil terlambat ' . $lateMinutes . ' menit';
                 }
 

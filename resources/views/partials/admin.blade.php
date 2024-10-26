@@ -1,4 +1,4 @@
-<x-card.card-default class="static bg-green-100">
+<x-card.card-default class="static bg-green-100 mx-auto">
     <div class="w-full h-full">
         <div class="flex gap-6 w-full flex-col justify-center items-center lg:flex-row">
             <img src="{{ asset('assets/images/admin1.svg') }}" class="md:max-w-sm max-w-40 rounded-lg object-cover" />
@@ -89,6 +89,8 @@
     </div>
 </section>
 <section class="py-20 p-8">
-<canvas id="chart" width="400" height="400"></canvas>
+<div class="w-20">
+    <canvas id="chart" width="10" height="10"></canvas>
+</div>
 
 </section>

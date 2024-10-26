@@ -11,7 +11,7 @@
     <x-form method="POST" action="{{ route('login') }}">
         @csrf
         <div class="w-full h-full">
-            <div class="flex gap-6 w-full flex-col justify-center items-center lg:flex-row">
+            <div class="flex gap-6 w-full flex-col justify-center items-center lg:flex-row ">
                 <img src="{{ asset('assets/images/app.svg') }}" class="md:max-w-sm max-w-40 rounded-lg object-cover" />
                 <div class="w-full">
                     <!-- Username -->

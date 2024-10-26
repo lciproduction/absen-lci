@@ -4,13 +4,13 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-card.card-default class="static mt-8">
+            <x-card.card-default class="static mt-8 mx-auto">
                 @if (session()->has('success'))
                     <x-alert.success :message="session('success')" />
                 @endif
 
 
-                <div class="md:flex justify-start space-x-4 mb-4 mt-4">
+                <div class="md:flex justify-start lg:space-x-4 mb-4 mt-4">
                     <div class="mt-4">
                         <x-input.select-input id="from" class="mt-1 w-full select2" name="from">
                             <option value="" disabled selected>Pilih Tanggal Awal</option>
@@ -114,9 +114,11 @@
                                     return '';
                                 } else {
                                     return `
-                                    <a href="{{ url('/siswa/history/${full.id}') }}">
-                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i>Detail</x-button.info-button>
+                                   <div class="flex justify-center items-center">
+                                     <a href="{{ url('/siswa/history/${full.id}') }}">
+                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
                                     </a>
+                                    </div>
                                 `;
                                 }
                             }

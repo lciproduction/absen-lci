@@ -4,7 +4,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-card.card-default class="static">
+            <x-card.card-default class="static mx-auto">
                 @if (session()->has('success'))
                     <x-alert.success :message="session('success')" />
                 @endif
@@ -21,7 +21,7 @@
                     </x-form>
                 </div>
 
-                <div class="flex justify-start space-x-4">
+                <div class="flex flex-col lg:flex-row justify-start lg:space-x-4">
                     <div class="mt-4">
                         <x-input.text-input id="from" class="mt-1 w-full" type="date" name="from" required />
                     </div>
@@ -114,16 +114,20 @@
                             render: function(data, type, full, meta) {
                                 if (full.status != 'Izin' || full.status != 'Sakit') {
                                     let link = `https://maps.google.com/?q=${full.coordinate}`
-                                    return `<a target="_blank" href="${link}">
-                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i>Lihat Peta</x-button.info-button>
-                                    </a>`
+                                    return `<div class="flex justify-center">
+                                        <a target="_blank" href="${link}">
+                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
+                                    </a>
+                                        </div>`
                                 } else {
                                     if (full.status == 'Sakit') {
                                         let link =
                                             `{{ asset('storage/attendance/${full.student.name}/${full.note}') }}`
-                                        return `<a target="_blank" href="${link}">
-                                            <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i>Lihat Peta</x-button.info-button>
-                                        </a>`
+                                        return `<div class="flex justify-center">
+                                            <a target="_blank" href="${link}">
+                                            <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
+                                        </a>
+                                            </div>`
                                     } else {
                                         return `${full.note}`
                                     }
@@ -142,9 +146,11 @@
                                     return '';
                                 } else {
                                     return `
-                                    <a href="{{ url('/attendance/${full.id}') }}">
-                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i>Detail</x-button.info-button>
+                                   <div class=" flex justify-center>
+                                     <a href="{{ url('/attendance/${full.id}') }}">
+                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
                                     </a>
+                                    </div>
                                 `;
                                 }
                             }

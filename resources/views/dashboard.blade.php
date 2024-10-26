@@ -1,11 +1,11 @@
 <x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-12 w-full">
+        <div class=" mx-auto sm:px-6 lg:px-8 ">
             @hasrole('admin')
                 @include('partials.admin')
                 <p>Hadir: {{ $hadir }}</p>
-<p>Sakit: {{ $sakit }}</p>
-<p>Izin: {{ $izin }}</p>
+                <p>Sakit: {{ $sakit }}</p>
+                <p>Izin: {{ $izin }}</p>
 
             @endrole
             @hasrole('student')
@@ -91,8 +91,8 @@
     <x-slot name="script">
         <script>
             const chart = $('#chart').get(0).getContext('2d');
-            chart.canvas.parentNode.style.width = '900px';
-            chart.canvas.parentNode.style.height = '500px';
+            chart.canvas.parentNode.style.width = '300px';
+            chart.canvas.parentNode.style.height = '300px';
 
             const labels = ['Hadir', 'Sakit', 'Izin'];
             const data = {
