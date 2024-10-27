@@ -3,15 +3,12 @@
 <x-app-layout>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-card.card-default class="static">
-
-                <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center px-5">
                     <a href="{{ route('student.history.index') }}">
-                        <x-button.info-button>
+                        <button class="btn bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 text-white">
                             <i class="fa-solid fa-arrow-left"></i>
                             Kembali
-                        </x-button.info-button>
+                        </button>
                     </a>
                     @php
                         $date = Carbon\Carbon::parse($attendance->created_at);
@@ -58,29 +55,32 @@
                         </dialog>
                     @endif
                 </div>
+         <div class="static overflow-x-auto mx-auto px-5 mt-10">
 
-                <div class="stats shadow">
+
+
+                <div class="stats w-full text-white bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500">
 
                     <div class="stat place-items-center">
-                        <div class="stat-title text-lg">Biodata</div>
+                        <div class="stat-title text-lg text-yellow-500">Biodata</div>
                         <div class="stat-value text-base">{{ $attendance->student->name }}</div>
-                        <div class="stat-desc">{{ $attendance->student->divisi }} -
+                        <div class="stat-desc text-white/80">{{ $attendance->student->divisi }} -
                             {{ $attendance->student->phone }} </div>
                     </div>
 
                     <div class="stat place-items-center">
-                        <div class="stat-title text-lg">Status</div>
-                        <div class="stat-value text-base">
-                            {{ $attendance->status == 'Absen Mapel' ? $attendance->status . ' ' . $attendance->schedule->subject->name : $attendance->status }}
+                        <div class="stat-title text-lg text-yellow-500">Status</div>
+                        <div class="stat-value text-base text-white">
+                            {{  $attendance->status }}
                         </div>
 
-                        <div class="stat-desc">{{ $attendance->created_at }}</div>
+                        <div class="stat-desc text-white/80">{{ $attendance->created_at }}</div>
                     </div>
 
                     @if ($attendance->status == 'Izin' || $attendance->status == 'Sakit')
 
                         <div class="stat place-items-center">
-                            <div class="stat-title text-lg">Keterangan</div>
+                            <div class="stat-title text-lg text-yellow-500">Keterangan</div>
                             <div class="stat-value text-base">
                                 @if ($attendance->status == 'Izin')
                                     {{ $attendance->note }}
@@ -98,8 +98,7 @@
 
                 </div>
 
-            </x-card.card-default>
-        </div>
+            </div>
     </div>
 
 </x-app-layout>

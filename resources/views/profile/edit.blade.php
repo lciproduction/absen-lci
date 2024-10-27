@@ -7,10 +7,10 @@
         </h2>
     </x-slot>
 
-    <div class="h-full py-12 p-8">
-        <x-card.card-default class="static glass pb-8">
+    <div class="h-full py-12 p-2 ">
+        <x-card.card-default class="bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 w-[90%] text-white  pb-8 mx-auto">
             <div class="flex flex-col items-center -mt-20">
-                @if (Auth::user()->student->photo)
+                @if (!Auth::user()->student->photo)
                   <div>
                       <img src="{{ asset('storage/student/photo/' . Auth::user()->student->photo) }}" id="imgReal"
                         class="h-32 w-32 object-cover object-center border-4 border-white rounded-full">
@@ -31,13 +31,13 @@
                 </div>
                 <p>{{ Auth::user()->student->divisi }}
                    </p>
-                <p class="text-sm text-gray-500">{{ Auth::user()->student->point ?? '-' }}</p>
+                <p class="text-sm text-yellow-500">{{ Auth::user()->student->point ?? '-' }}</p>
             </div>
         </x-card.card-default>
 
-        <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+        <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4 ">
             <div class="w-full flex flex-col 2xl:w-1/3">
-                <x-card.card-default class="flex-1 glass static p-8">
+                <x-card.card-default class="flex-1 glass static p-8 mx-auto bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 text-white">
                     @if (session()->has('success'))
                         <x-alert.success :message="session('success')" />
                     @endif
@@ -66,7 +66,7 @@
                         </div>
 
                         <div class="mt-4">
-                            <x-button.primary-button type="submit" disabled>
+                            <x-button.primary-button type="submit" disabled class="text-white border border-white">
                                 {{ __('Simpan') }}
                             </x-button.primary-button>
                         </div>

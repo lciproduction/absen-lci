@@ -4,7 +4,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-card.card-default class="static mt-8 mx-auto">
+            <x-card.card-default class="static mt-8 mx-auto bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500">
                 @if (session()->has('success'))
                     <x-alert.success :message="session('success')" />
                 @endif
@@ -33,7 +33,7 @@
                 <div class="relative overflow-x-auto mt-5">
                     <table id="attendances" class="table table-zebra">
                         <thead>
-                            <tr>
+                            <tr class="text-red-950">
                                 <th scope="col" class="px-6 py-3">
                                     No
                                 </th>
@@ -54,8 +54,18 @@
             </x-card.card-default>
         </div>
     </div>
+<style>
+    /* CSS untuk teks di baris genap */
+    #attendances tbody tr:nth-child(1n) td {
+        color: white;
+    }
+    #attendances tbody tr:nth-child(2n) td {
+        color: #450a0a;
+    }
+</style>
 
     <x-slot name="script">
+
         <script>
             $(document).ready(function() {
 
@@ -66,7 +76,8 @@
                     ],
                     processing: true,
                     search: {
-                        return: true
+                        return: true,
+
                     },
                     serverSide: true,
                     ajax: {
@@ -116,14 +127,19 @@
                                     return `
                                    <div class="flex justify-center items-center">
                                      <a href="{{ url('/siswa/history/${full.id}') }}">
-                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
+                                        <button type="button" class="btn btn-sm text-white bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500"><i class="fa-regular fa-eye"></i></button>
                                     </a>
                                     </div>
                                 `;
                                 }
                             }
                         },
-                    ]
+                    ],
+                    language: {
+                        lengthMenu: "Tampilkan _MENU_  per halaman",
+                        search: "Cari:",
+                        info: "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri",
+                         },
                 });
 
                 $('#from, #to').change(function() {
@@ -132,5 +148,8 @@
             });
         </script>
     </x-slot>
+
+
+
 
 </x-app-layout>

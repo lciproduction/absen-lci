@@ -6,7 +6,7 @@
                     <span id="notif"></span>
                 </div>
             </div>
-            <div class=" bg-gray-50 shadow-md p-2 mx-auto w-[90%]">
+            <div class=" bg-gradient-to-tr from-red-950 to-red-700 rounded-lg shadow-inner shadow-yellow-500  p-2 mx-auto w-[90%]">
 
                 <div class="flex flex-col p-2 lg:p-6  text-center w-full ">
                     @include('student.attendance.selector')
@@ -15,7 +15,7 @@
                     <span class="loading loading-spinner text-primary hidden" id="loading"></span>
                     <x-button.primary-button id="HadirWFO" class="mt-3 hidden">Absen</x-button.primary-button>
                     <x-button.primary-button id="HadirWFH" class="mt-3 hidden">Absen</x-button.primary-button>
-                    <x-button.success-button id="sendPermit" class="mt-3 hidden">Absen</x-button.success-button>
+                    <button id="sendPermit" class="mt-3 btn bg-gradient-to-tr from-red-950 to-red-700 hidden text-white">Absen</button>
                     <x-button.warning-button id="sendSick" class="mt-3 hidden">Absen</x-button.warning-button>
                     <p id="note-error" class="hidden font-light text-gray-500 sm:text-lg dark:text-gray-400">
                         Anda Tidak Bisa Melakukan Absen, Silahkan Refresh Browser Lalu Aktifkan / Izinkan / Allow Lokasi Anda.

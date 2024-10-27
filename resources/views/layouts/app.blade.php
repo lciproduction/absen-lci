@@ -23,7 +23,7 @@
 </head>
 
 <body class="font-poppins antialiased ">
-    <div class="min-h-screen ">
+    <div class="min-h-screen bg-[#1A1A19]">
         @include('layouts.navigation')
 
 

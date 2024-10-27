@@ -1,6 +1,6 @@
 <div class="mt-4 mb-4">
-    <x-input.input-label for="status" :value="__('Status')" />
-    <x-input.select-input id="status" class="mt-1 w-full" type="text" name="status" required autofocus
+    <x-input.input-label for="status" :value="__('Status')" class="text-white" />
+    <x-input.select-input id="status" class="mt-1 w-full bg-[#1A1A19] text-white border-yellow-500 " type="text" name="status" required autofocus
         autocomplete="status">
         <option value="" disabled selected>Pilih Status Kehadiran</option>
         <option value="HadirWFO">Hadir WFO</option>
@@ -15,6 +15,6 @@
         placeholder="Acara Keluarga" required />
 </div>
 <div class="hidden" id="fileUpload">
-    <x-input.input-label for="sickFile" :value="__('Surat Keterangan')" />
+    <x-input.input-label for="sickFile" :value="__('Surat Keterangan')" class="text-white" />
     <x-input.text-input id="sickFile" name="sickFile" class="mt-1 w-full" type="file" maxlength="50" required />
 </div>
