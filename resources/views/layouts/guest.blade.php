@@ -14,8 +14,8 @@
 </head>
 
 <body class="font-poppins text-gray-900 antialiased">
-    <div class="flex flex-col justify-center items-center md:mt-32 mt-12">
-        <x-card.card-default class="w-2/3">
+    <div class="flex flex-col justify-center items-center md:mt-32 mt-12 ">
+        <x-card.card-default class="w-2/3 bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500">
             {{ $slot }}
         </x-card.card-default>
     </div>
