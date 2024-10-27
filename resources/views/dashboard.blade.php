@@ -59,13 +59,13 @@
                     @else
                         <div class="overflow-x-auto">
                             <table class="table w-full border-collapse rounded-lg overflow-hidden shadow-lg">
-                                <thead class="bg-blue-600 text-white">
+                                <thead class="bg-red-900 text-white">
                                     <tr>
                                         <th class="p-3 text-left">Nama Siswa</th>
                                         <th class="p-3 text-left">Divisi</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-gray-50">
+                                <tbody class="bg-gray-50 text-red-950">
                                     @foreach($studentsAbsent as $student)
                                         <tr class="hover:bg-blue-50">
                                             <td class="p-3 border-b">{{ $student->name }}</td>
