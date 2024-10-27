@@ -141,6 +141,40 @@
         border-color: #7f1d1d !important; /* Ubah warna border menjadi merah */
         box-shadow: 0 0 0 2px #7f1d1d !important; /* Shadow merah untuk konsistensi tema */
     }
+     /* Mengubah grid menjadi satu kolom untuk menumpuk elemen secara vertikal */
+    #attendances_wrapper .grid.grid-cols-2 {
+        grid-template-columns: 1fr; /* Mengubah grid menjadi satu kolom */
+    }
+
+    /* Menempatkan elemen "Tampilkan per halaman" di atas dan "Cari" di bawahnya */
+    #attendances_wrapper .dt-length {
+        order: 1; /* Tetap di posisi pertama */
+    }
+
+    #attendances_wrapper .dt-search {
+        order: 2; /* Pindah ke posisi kedua */
+        margin-top: 10px; /* Tambahkan jarak antara elemen */
+    }
+
+    /* Mengatur lebar input "Cari" agar lebih serasi */
+     /* Lebar default untuk desktop */
+    #attendances_wrapper .dt-search input[type="search"] {
+        width: 20%; /* Lebar 20% untuk desktop */
+    }
+
+    /* Lebar untuk tablet */
+    @media (max-width: 1024px) {
+        #attendances_wrapper .dt-search input[type="search"] {
+            width: 50%; /* Lebar 50% untuk tablet */
+        }
+    }
+
+    /* Lebar untuk ponsel */
+    @media (max-width: 640px) {
+        #attendances_wrapper .dt-search input[type="search"] {
+            width: 100%; /* Lebar penuh untuk ponsel */
+        }
+    }
 
 </style>
 

@@ -12,11 +12,11 @@
         @csrf
         <div class="w-full h-full">
             <div class="flex gap-6 w-full flex-col justify-center items-center lg:flex-row ">
-                <img src="{{ asset('assets/images/app.svg') }}" class="md:max-w-sm max-w-40 rounded-lg object-cover" />
-                <div class="w-full">
+                <img src="{{ asset('assets/images/logoputih.png') }}" class="md:max-w-sm max-w-40 rounded-lg object-cover hidden lg:flex" />
+                <div class="w-full ">
                     <!-- Username -->
                     <div>
-                        <x-input.input-label for="username" :value="__('Username')" />
+                        <x-input.input-label for="username" :value="__('Username')" class="text-white" />
                         <x-input.text-input id="username" class="mt-1 w-full" type="text" name="username"
                             :value="old('username')" required autofocus autocomplete="username" />
                         {{-- <x-input.input-error :messages="$errors->get('username')" class="mt-2" /> --}}
