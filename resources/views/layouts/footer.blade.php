@@ -1,7 +1,7 @@
 
 <footer class="footer footer-center bg-gradient-to-tr from-red-950 to-red-700 border-t-2 border-yellow-500 text-white p-10 mb-10 lg:mb-0">
   <aside>
-    <img src="{{ asset('assets/images/logo.png') }}" alt="logo" class="w-32">
+    <img src="{{ asset('assets/images/logoo.png') }}" alt="logo" class="w-32">
     <p class="font-bold text-white">
       ID Next Leader
       <br />
