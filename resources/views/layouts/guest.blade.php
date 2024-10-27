@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', config('app.name', 'Laravel')) - {{ config('app.name', 'Laravel') }}</title>
-    <link rel="shortcut icon" href="{{ asset('assets/images/simanjaterbaru.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logoo.png') }}" type="image/x-icon">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
