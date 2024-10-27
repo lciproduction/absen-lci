@@ -10,22 +10,22 @@
                             Kembali
                         </button>
                     </a>
-                    @php
-                        $date = Carbon\Carbon::parse($attendance->created_at);
-                        $timeInEarly = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_early);
-                        $timeInLate = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_lately);
-                        $timeOutEarly = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_early);
-                        $timeOutLate = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_lately);
-                        $currentTime = Carbon\Carbon::now();
+                        @php
+                            $timeInEarly = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_early);
+                            $timeInLate = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_lately);
+                            $timeOutEarly = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_early);
+                            $timeOutLate = Carbon\Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_lately);
+                            $currentTime = Carbon\Carbon::now();
+                        @endphp
 
-                    @endphp
-                    @if (
-                        ($date->isToday() && $currentTime->between($timeInEarly, $timeInLate)) ||
-                            ($date->isToday() && $currentTime->gt($timeInLate) && $currentTime->lt($timeOutEarly)))
-                        <x-button.danger-button class="btn text-white" onclick="my_modal_1.showModal()">
-                            <i class="fa-regular fa-trash-can"></i>
-                            Hapus
-                        </x-button.danger-button>
+                                            @if (
+                            $currentTime->between($timeInEarly, $timeInLate) ||
+                            $currentTime->between($timeOutEarly, $timeOutLate)
+                        )
+                            <x-button.danger-button class="btn text-white" onclick="my_modal_1.showModal()">
+                                <i class="fa-regular fa-trash-can"></i>
+                                Hapus
+                            </x-button.danger-button>
                         <dialog id="my_modal_1" class="modal bg-base-200">
                             <div class="modal-box p-4">
                                 <h3 class="text-lg font-bold">Halo {{ auth()->user()->student->name }}</h3>

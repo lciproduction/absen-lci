@@ -54,6 +54,10 @@ class HistoryController extends Controller
             abort(403);
         }
         $waktuAbsen = Time::first();
+
+
+
+
         return view('student.history.show', compact('attendance', 'waktuAbsen'));
     }
 

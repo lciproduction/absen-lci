@@ -47,19 +47,19 @@
                         @csrf
                         <input type="hidden" name="oldImage" value="{{ Auth::user()->student->photo }}" disabled>
                         <div class="mt-4">
-                            <x-input.input-label for="photo" :value="__('Foto')" disabled />
+                            <x-input.input-label for="photo" :value="__('Foto')" class="text-white" />
                             <x-input.input-file id="photo" class="mt-1 w-full" type="file" name="photo"
                                 onchange="previewImage()" :value="old('photo')" disabled />
                             <x-input.input-error :messages="$errors->get('photo')" class="mt-2" disabled />
                         </div>
                         <div class="mt-4">
-                            <x-input.input-label for="phone" :value="__('No Telpon')" disabled/>
+                            <x-input.input-label for="phone" :value="__('No Telpon')" class="text-white"  disabled/>
                             <x-input.text-input id="phone" class="mt-1 w-full" type="number" name="phone"
                                 :value="old('phone', Auth::user()->student->phone ?? '')" autofocus autocomplete="phone" disabled/>
                             <x-input.input-error :messages="$errors->get('phone')" class="mt-2" disabled/>
                         </div>
                         <div class="mt-4">
-                            <x-input.input-label for="address" :value="__('Alamat')" disabled/>
+                            <x-input.input-label for="address" :value="__('Alamat')" class="text-white"  disabled/>
                             <x-input.text-input id="address" class="mt-1 w-full" type="text" name="address"
                                 :value="old('address', Auth::user()->student->address ?? '')" autofocus autocomplete="address" disabled/>
                             <x-input.input-error :messages="$errors->get('address')" class="mt-2"disabled />
