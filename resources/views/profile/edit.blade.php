@@ -29,8 +29,16 @@
                 <div class="flex items-center space-x-2 mt-2">
                     <p class="md:text-2xl text-xl text-center">{{ Auth::user()->student->name }}</p>
                 </div>
-                <p>{{ Auth::user()->student->divisi }}
-                   </p>
+                <p>
+                            @if (Auth::user()->student->divisi == 'Govrel')
+                                Government and Stakeholder Relations
+                            @elseif (Auth::user()->student->divisi == 'Comprel')
+                                Community and Corporate Relations
+                            @else
+                                {{ Auth::user()->student->divisi }}
+                            @endif
+            </p>
+
                 <p class="text-sm text-yellow-500">{{ Auth::user()->student->point ?? '-' }}</p>
             </div>
         </x-card.card-default>

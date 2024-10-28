@@ -45,8 +45,8 @@
                 <x-input.select-input id="divisi" class="mt-1 w-full bg-red-primary text-white border border-white" name="divisi" >
                     <option value="All">Semua</option>
                     <option value="Project Management">Project Management</option>
-                    <option value="Comprel">Comprel</option>
-                    <option value="Govrel">Govrel</option>
+                    <option value="Community and Corporate Relations">Community and Corporate Relations</option>
+                    <option value="Government and Stakeholder Relations ">Government and Stakeholder Relations </option>
                     <option value="Design Grafis">Design Grafis</option>
                     <option value="Social Media Specialist">Social Media Specialist</option>
                 </x-input.select-input>

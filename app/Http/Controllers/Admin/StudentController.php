@@ -108,8 +108,8 @@ class StudentController extends Controller
         // Daftar Divisi
         $divisions = [
             ['id' => 1, 'name' => 'Project Management'],
-            ['id' => 2, 'name' => 'Govrel'],
-            ['id' => 3, 'name' => 'Comprel'],
+            ['id' => 2, 'name' => 'Government and Stakeholder Relations '],
+            ['id' => 3, 'name' => 'Community and Corporate Relations'],
             ['id' => 4, 'name' => 'Design Grafis'],
             ['id' => 5, 'name' => 'Social Media Specialist'],
         ];
@@ -207,8 +207,8 @@ class StudentController extends Controller
 
         $divisions = [
             ['id' => 1, 'name' => 'Project Management'],
-            ['id' => 2, 'name' => 'Govrel'],
-            ['id' => 3, 'name' => 'Comprel'],
+            ['id' => 2, 'name' => 'Government and Stakeholder Relations '],
+            ['id' => 3, 'name' => 'Community and Corporate Relations'],
             ['id' => 4, 'name' => 'Design Grafis'],
             ['id' => 5, 'name' => 'Social Media Specialist'],
         ];

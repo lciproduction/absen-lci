@@ -34,6 +34,8 @@ class AttendanceController extends Controller
         $absenLng = $request->longitude ?? NULL;
         $distance = $this->haversine($centerLat, $centerLng, $absenLat, $absenLng);
 
+
+
         $waktuAbsen = Time::first();
         if (!$waktuAbsen) {
             return response()->json(['message' => 'Waktu absen tidak ditemukan']);
@@ -43,7 +45,9 @@ class AttendanceController extends Controller
         $timeInLate = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_lately);
         $timeOutEarly = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_early);
         $timeOutLate = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_lately);
-        Log::info('Status dari request:', ['status' => $timeOutEarly]);
+        Log::info('distance:', ['status' => $distance]);
+        Log::info('radius:', ['status' => $radius]);
+        Log::info('radius & radius :', ['status' => $distance >= $radius]);
 
 
         // Pengecekan absensi masuk hari ini
@@ -65,12 +69,15 @@ class AttendanceController extends Controller
                 if ($currentTime->lt($timeInEarly)) {
                     return response()->json(['message' => 'Waktu absen belum dimulai']);
                 } elseif ($currentTime->between($timeInEarly, $timeInLate)) {
-                    if ($distance > $radius) {
+                    if ($distance >= $radius) {
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
                     }
                     $status = 'Absen Masuk WFO';
                     $message = 'Absen Masuk WFO Berhasil';
                 } else {
+                    if ($distance >= $radius) {
+                        return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
+                    }
                     $lateMinutes = $currentTime->diffInMinutes($timeInLate);
                     $status = 'Absen Masuk WFO (Terlambat)';
                     $message = 'Absen Masuk Berhasil, terlambat ' . $lateMinutes . ' menit';
@@ -118,7 +125,7 @@ class AttendanceController extends Controller
                 if ($currentTime->lt($timeOutEarly)) {
                     return response()->json(['message' => 'Waktu pulang belum dimulai']);
                 } elseif ($currentTime->between($timeOutEarly, $timeOutLate)) {
-                    if ($distance > $radius) {
+                    if ($distance <= $radius) {
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
                     }
                     $status = 'Absen Pulang WFO';
