@@ -45,9 +45,9 @@ class AttendanceController extends Controller
         $timeInLate = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_lately);
         $timeOutEarly = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_early);
         $timeOutLate = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_out_lately);
-        Log::info('distance:', ['status' => $distance]);
-        Log::info('radius:', ['status' => $radius]);
-        Log::info('radius & radius :', ['status' => $distance >= $radius]);
+        // Log::info('distance:', ['status' => $distance]);
+        // Log::info('radius:', ['status' => $radius]);
+        // Log::info('radius & radius :', ['status' => $distance >= $radius]);
 
 
         // Pengecekan absensi masuk hari ini
@@ -79,8 +79,15 @@ class AttendanceController extends Controller
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
                     }
                     $lateMinutes = $currentTime->diffInMinutes($timeInLate);
+
+                    $hours = intdiv($lateMinutes, 60); // Mendapatkan jumlah jam
+                    $minutes = $lateMinutes % 60; // Mendapatkan sisa menit
+                    $formattedLate = sprintf('%02d:%02d', $hours, $minutes); // Format HH:MM
+
+
                     $status = 'Absen Masuk WFO (Terlambat)';
-                    $message = 'Absen Masuk Berhasil, terlambat ' . $lateMinutes . ' menit';
+                    $message = 'Absen Masuk Berhasil, terlambat ' . $formattedLate . ' jam';
+
                     $student->point -= 2;
                     $student->save();
                 }
@@ -99,8 +106,15 @@ class AttendanceController extends Controller
                     $message = 'Absen Masuk WFH Berhasil';
                 } else {
                     $lateMinutes = $currentTime->diffInMinutes($timeInLate);
+
+                    $hours = intdiv($lateMinutes, 60); // Mendapatkan jumlah jam
+                    $minutes = $lateMinutes % 60; // Mendapatkan sisa menit
+                    $formattedLate = sprintf('%02d:%02d', $hours, $minutes); // Format HH:MM
+
+
                     $status = 'Absen Masuk WFH (Terlambat)';
-                    $message = 'Absen Masuk Berhasil, terlambat ' . $lateMinutes . ' menit';
+                    $message = 'Absen Masuk Berhasil, terlambat ' . $formattedLate . ' jam';
+
                     $student->point -= 2;
                     $student->save();
                 }
@@ -132,8 +146,13 @@ class AttendanceController extends Controller
                     $message = 'Absen Pulang WFO Berhasil';
                 } else {
                     $lateMinutes = $currentTime->diffInMinutes($timeOutLate);
+
+                    $hours = intdiv($lateMinutes, 60); // Mendapatkan jumlah jam
+                    $minutes = $lateMinutes % 60; // Mendapatkan sisa menit
+                    $formattedLate = sprintf('%02d:%02d', $hours, $minutes); // Format HH:MM
+
                     $status = 'Absen Pulang WFO (Terlambat)';
-                    $message = 'Absen Pulang WFO berhasil terlambat ' . $lateMinutes . ' menit';
+                    $message = 'Absen Masuk Berhasil, terlambat ' . $formattedLate . ' jam';
                 }
                 break;
 
@@ -160,8 +179,12 @@ class AttendanceController extends Controller
                     $message = 'Absen Pulang WFH Berhasil';
                 } else {
                     $lateMinutes = $currentTime->diffInMinutes($timeOutLate);
+
+                    $hours = intdiv($lateMinutes, 60); // Mendapatkan jumlah jam
+                    $minutes = $lateMinutes % 60; // Mendapatkan sisa menit
+                    $formattedLate = sprintf('%02d:%02d', $hours, $minutes); // Format HH:MM
                     $status = 'Absen Pulang WFH (Terlambat)';
-                    $message = 'Absen Pulang WFH berhasil terlambat ' . $lateMinutes . ' menit';
+                    $message = 'Absen Masuk Berhasil, terlambat ' . $formattedLate . ' jam';
                 }
                 break;
 
