@@ -4,7 +4,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-card.card-default class="static">
+            <x-card.card-default class="static bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 mx-auto">
                 @if (session()->has('success'))
                     <x-alert.success :message="session('success')" />
                 @endif
@@ -13,25 +13,25 @@
                     @csrf
 
                     <div class="mt-4">
-                        <x-input.input-label for="time_in_early" :value="__('Jam Masuk Awal')" />
+                        <x-input.input-label for="time_in_early" :value="__('Jam Masuk Awal')" class="text-white" />
                         <x-input.text-input id="time_in_early" class="mt-1 w-full" type="time" name="time_in_early"
                             :value="old('time_in_early', $time->time_in_early)" required autofocus autocomplete="time_in_early" />
                         <x-input.input-error :messages="$errors->get('time_in_early')" class="mt-2" />
                     </div>
                     <div class="mt-4">
-                        <x-input.input-label for="time_in_lately" :value="__('Jam Masuk Akhir')" />
+                        <x-input.input-label for="time_in_lately" :value="__('Jam Masuk Akhir')" class="text-white"/>
                         <x-input.text-input id="time_in_lately" class="mt-1 w-full" type="time" name="time_in_lately"
                             :value="old('time_in_lately', $time->time_in_lately)" required autofocus autocomplete="time_in_lately" />
                         <x-input.input-error :messages="$errors->get('time_in_lately')" class="mt-2" />
                     </div>
                     <div class="mt-4">
-                        <x-input.input-label for="time_out_early" :value="__('Jam Pulang Awal')" />
+                        <x-input.input-label for="time_out_early" :value="__('Jam Pulang Awal')" class="text-white" />
                         <x-input.text-input id="time_out_early" class="mt-1 w-full" type="time" name="time_out_early"
                             :value="old('time_out_early', $time->time_out_early)" required autofocus autocomplete="time_out_early" />
                         <x-input.input-error :messages="$errors->get('time_out_early')" class="mt-2" />
                     </div>
                     <div class="mt-4">
-                        <x-input.input-label for="time_out_lately" :value="__('Jam Pulang Akhir')" />
+                        <x-input.input-label for="time_out_lately" :value="__('Jam Pulang Akhir')" class="text-white" />
                         <x-input.text-input id="time_out_lately" class="mt-1 w-full" type="time"
                             name="time_out_lately" :value="old('time_out_lately', $time->time_out_lately)" required autofocus
                             autocomplete="time_out_lately" />

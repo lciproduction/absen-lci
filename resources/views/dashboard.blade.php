@@ -3,9 +3,23 @@
         <div class=" mx-auto sm:px-6 lg:px-8 ">
             @hasrole('admin')
                 @include('partials.admin')
-                <p>Hadir: {{ $hadir }}</p>
-                <p>Sakit: {{ $sakit }}</p>
-                <p>Izin: {{ $izin }}</p>
+                <section class="py-20 p-8">
+      <div class="bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 py-5 w-[100%] md:w-[80%] lg:w-[70%] rounded-lg mx-auto">
+        <h1 class="text-xl font-semibold text-white px-5 mb-5">Data Analytics Daily</h1>
+          <div class="flex items-center justify-around ">
+                 <div class="w-20 flex">
+                    <canvas id="chart" width="10" height="10"></canvas>
+                </div>
+                 {{-- <div class="text-white">
+                    <p>Hadir: {{ $hadir }}</p>
+                    <p>Sakit: {{ $sakit }}</p>
+                    <p>Izin: {{ $izin }}</p>
+                 </div> --}}
+        </div>
+      </div>
+    </div>
+</section>
+
 
             @endrole
             @hasrole('student')
@@ -88,7 +102,7 @@
             @endrole
         </div>
     </div>
-
+{{--
     <x-slot name="script">
         <script>
             const chart = $('#chart').get(0).getContext('2d');
@@ -119,5 +133,47 @@
                 data: data,
             });
         </script>
-    </x-slot>
+    </x-slot> --}}
+    <x-slot name="script">
+    <script>
+        const chart = $('#chart').get(0).getContext('2d');
+        chart.canvas.parentNode.style.width = '300px';
+        chart.canvas.parentNode.style.height = '300px';
+
+        const labels = ['Hadir', 'Sakit', 'Izin'];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Persentasi Absensi Siswa',
+                data: [{{ $hadir }},
+                    {{ $sakit }},
+                    {{ $izin }}
+                ],
+                backgroundColor: [
+                    'rgb(0, 224, 49)',
+                    'rgb(2, 204, 174)',
+                    'rgb(234, 237, 19)',
+                ],
+                hoverOffset: 4
+            }]
+        };
+
+        const options = {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#ffffff' // Set the label text color to white
+                    }
+                }
+            }
+        };
+
+        new Chart(chart, {
+            type: 'doughnut',
+            data: data,
+            options: options, // Add the options here
+        });
+    </script>
+</x-slot>
+
 </x-app-layout>

@@ -4,7 +4,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-card.card-default class="static">
+            <x-card.card-default class="static mx-auto bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500">
                 @if (session()->has('success'))
                     <x-alert.success :message="session('success')" />
                 @endif
@@ -23,20 +23,20 @@
                             </div>
                         @endif
                         <img class="imgPreview h-auto max-w-lg mx-auto hidden" alt="logo">
-                        <x-input.input-label for="logo" :value="__('Logo')" />
+                        <x-input.input-label for="logo" :value="__('Logo')" class="text-white" />
                         <x-input.input-file id="logo" class="mt-1 w-full" type="file" name="logo"
                             :value="old('logo', $setting?->logo)" autofocus autocomplete="logo" onchange="previewImage()" required />
                         <x-input.input-error :messages="$errors->get('logo')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input.input-label for="name" :value="__('Nama Sekolah')" />
+                        <x-input.input-label for="name" :value="__('Nama Sekolah')"  class="text-white"  />
                         <x-input.text-input id="name" class="mt-1 w-full" type="text" name="name"
                             :value="old('name', $setting->name ?? '')" required autofocus autocomplete="name" />
                         <x-input.input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div class="mt-4">
-                        <x-input.input-label for="coordinate" :value="__('Titik Koordinat')" />
+                        <x-input.input-label for="coordinate" :value="__('Titik Koordinat')"  class="text-white"  />
                         <x-input.text-input id="coordinate" class="mt-1 w-full" type="text" name="coordinate"
                             :value="old('coordinate', $setting->coordinate ?? '')" required autofocus autocomplete="coordinate" />
                         <x-input.input-error :messages="$errors->get('coordinate')" class="mt-2" />

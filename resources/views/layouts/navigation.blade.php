@@ -8,10 +8,10 @@
             <li><a href="{{ route('dashboard') }}">Beranda</a></li>
             @hasanyrole('admin|teacher')
                 @hasrole('admin')
-                    <li>
-                        <details>
+                    <li >
+                        <details >
                             <summary class="">Master Data</summary>
-                            <ul class="p-2 z-10 w-72">
+                            <ul class="p-2 z-10 w-72 bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500">
                                 <li><a href="{{ route('student.index') }}">Data Peserta MSIB Muda Berkreaksi</a></li>
 
                             </ul>
@@ -95,12 +95,12 @@
             <span class="btm-nav-label text-xs text-white">Beranda</span>
         </a>
         @hasrole('admin')
-            <div class="dropdown dropdown-top relative">
-                <div tabindex="0" class="flex flex-col justify-center items-center mt-[0.80rem] gap-1">
+            <div class="dropdown dropdown-top relative ">
+                <div tabindex="0" class="flex flex-col justify-center items-center mt-[0.80rem] gap-1 bg-red-800">
                     <i class="fa-solid fa-house text-white" class="h-5 w-5"></i>
                     <span class="btm-nav-label text-xs text-white">Data Master</span>
                 </div>
-                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                <ul tabindex="0" class="dropdown-content menu text-white rounded-box z-[1] w-52 p-2  bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500">
                     <li><a href="{{ route('student.index') }}">Data Peserta MSIB Muda Berkreaksi</a></li>
                 </ul>
             </div>
