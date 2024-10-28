@@ -238,7 +238,7 @@
                                     let link = `https://maps.google.com/?q=${full.coordinate}`
                                     return `<div class="flex justify-center">
                                         <a target="_blank" href="${link}">
-                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
+                                        <button type="button" class="btn-sm bg-blue-800 btn text-white hover:bg-blue-800/90"><i class="fa-regular fa-eye"></i></button>
                                     </a>
                                         </div>`
                                 } else {
@@ -247,7 +247,7 @@
                                             `{{ asset('storage/attendance/${full.student.name}/${full.note}') }}`
                                         return `<div class="flex justify-center">
                                             <a target="_blank" href="${link}">
-                                            <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
+                                            <button type="button" class="btn-sm bg-blue-800 btn text-white hover:bg-blue-800/90"><i class="fa-regular fa-eye"></i></button>
                                         </a>
                                             </div>`
                                     } else {
@@ -268,9 +268,9 @@
                                     return '';
                                 } else {
                                     return `
-                                   <div class=" flex justify-center>
+                                   <div class=" flex justify-center">
                                      <a href="{{ url('/attendance/${full.id}') }}">
-                                        <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-eye"></i></x-button.info-button>
+                                        <button type="button" class="btn-sm bg-blue-800 btn text-white hover:bg-blue-800/90"><i class="fa-regular fa-eye"></i></button>
                                     </a>
                                     </div>
                                 `;

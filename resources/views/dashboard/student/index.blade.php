@@ -247,12 +247,12 @@
                                 return `
                                 <div class="flex  justify-center items-center gap-2">
                                     <a class="flex" href="{{ url('/student/${full.id}/edit') }}">
-                                    <x-button.info-button type="button" class="btn-sm text-white"><i class="fa-regular fa-pen-to-square"></i></x-button.info-button>
+                                    <button type="button" class="btn-sm bg-blue-800 btn text-white"><i class="fa-regular fa-pen-to-square"></i></button>
                                 </a>
                                 <x-form action="{{ url('/student/${full.id}') }}" class="flex">
                                     @csrf
                                     @method('DELETE')
-                                    <x-button.danger-button type="submit" class="btn-sm text-white" onclick="return confirm('Are you sure?')"><i class="fa-regular fa-trash-can"></i></x-button.danger-button>
+                                    <button type="submit" class="btn-sm btn bg-red-primary text-white" onclick="return confirm('Are you sure?')"><i class="fa-regular fa-trash-can"></i></button>
                                 </x-form>
                                     </div>
                             `;

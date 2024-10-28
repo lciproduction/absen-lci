@@ -69,10 +69,24 @@ class StudentController extends Controller
         // Data universitas yang akan ditampilkan di form filter atau lainnya
         $university = [
             ['id' => 1, 'name' => 'Universitas Indonesia'],
-            ['id' => 2, 'name' => 'Institut Teknologi Bandung'],
-            ['id' => 3, 'name' => 'Universitas Gadjah Mada'],
-            ['id' => 4, 'name' => 'Universitas Airlangga'],
+            ['id' => 2, 'name' => 'Universitas Udayana'],
+            ['id' => 3, 'name' => 'Universitas Diponegoro'],
+            ['id' => 4, 'name' => 'Universitas Hasanuddin'],
             ['id' => 5, 'name' => 'Universitas Brawijaya'],
+            ['id' => 5, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
+            ['id' => 5, 'name' => 'Universitas Negeri Jakarta'],
+            ['id' => 5, 'name' => 'President University'],
+            ['id' => 5, 'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'],
+            ['id' => 5, 'name' => 'Universitas Widyatama'],
+            ['id' => 5, 'name' => 'Universitas Pembangunan Jaya'],
+            ['id' => 5, 'name' => 'Universitas Mercu Buana'],
+            ['id' => 5, 'name' => 'Universitas Gunadarma'],
+            ['id' => 5, 'name' => 'Universitas Pendidikan Indonesia'],
+            ['id' => 5, 'name' => 'UPN Veteran Jakarta'],
+            ['id' => 5, 'name' => 'Universitas Airlangga'],
+            ['id' => 5, 'name' => 'Universitas Padjadjaran'],
+            ['id' => 5, 'name' => 'Universitas Katolik Parahyangan'],
+            ['id' => 5, 'name' => 'Universitas Negeri Malang'],
         ];
 
         return view('dashboard.student.index', compact('university'));
@@ -102,10 +116,27 @@ class StudentController extends Controller
 
         $university = [
             ['id' => 1, 'name' => 'Universitas Indonesia'],
-            ['id' => 2, 'name' => 'Institut Teknologi Bandung'],
-            ['id' => 3, 'name' => 'Universitas Gadjah Mada'],
-            ['id' => 4, 'name' => 'Universitas Airlangga'],
+            ['id' => 2, 'name' => 'Universitas Udayana'],
+            ['id' => 3, 'name' => 'Universitas Diponegoro'],
+            ['id' => 4, 'name' => 'Universitas Hasanuddin'],
             ['id' => 5, 'name' => 'Universitas Brawijaya'],
+            ['id' => 6, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
+            ['id' => 7, 'name' => 'Universitas Negeri Jakarta'],
+            ['id' => 8, 'name' => 'President University'],
+            [
+                'id' => 9,
+                'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'
+            ],
+            ['id' => 10, 'name' => 'Universitas Widyatama'],
+            ['id' => 11, 'name' => 'Universitas Pembangunan Jaya'],
+            ['id' => 12, 'name' => 'Universitas Mercu Buana'],
+            ['id' => 13, 'name' => 'Universitas Gunadarma'],
+            ['id' => 14, 'name' => 'Universitas Pendidikan Indonesia'],
+            ['id' => 15, 'name' => 'UPN Veteran Jakarta'],
+            ['id' => 16, 'name' => 'Universitas Airlangga'],
+            ['id' => 17, 'name' => 'Universitas Padjadjaran'],
+            ['id' => 18, 'name' => 'Universitas Katolik Parahyangan'],
+            ['id' => 19, 'name' => 'Universitas Negeri Malang'],
         ];
 
         return view('dashboard.student.create', compact('divisions', 'days', 'university'));
@@ -181,7 +212,31 @@ class StudentController extends Controller
             ['id' => 4, 'name' => 'Design Grafis'],
             ['id' => 5, 'name' => 'Social Media Specialist'],
         ];
-        return view('dashboard.student.edit', compact('student', 'divisions'));
+        $university = [
+            ['id' => 1, 'name' => 'Universitas Indonesia'],
+            ['id' => 2, 'name' => 'Universitas Udayana'],
+            ['id' => 3, 'name' => 'Universitas Diponegoro'],
+            ['id' => 4, 'name' => 'Universitas Hasanuddin'],
+            ['id' => 5, 'name' => 'Universitas Brawijaya'],
+            ['id' => 6, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
+            ['id' => 7, 'name' => 'Universitas Negeri Jakarta'],
+            ['id' => 8, 'name' => 'President University'],
+            [
+                'id' => 9,
+                'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'
+            ],
+            ['id' => 10, 'name' => 'Universitas Widyatama'],
+            ['id' => 11, 'name' => 'Universitas Pembangunan Jaya'],
+            ['id' => 12, 'name' => 'Universitas Mercu Buana'],
+            ['id' => 13, 'name' => 'Universitas Gunadarma'],
+            ['id' => 14, 'name' => 'Universitas Pendidikan Indonesia'],
+            ['id' => 15, 'name' => 'UPN Veteran Jakarta'],
+            ['id' => 16, 'name' => 'Universitas Airlangga'],
+            ['id' => 17, 'name' => 'Universitas Padjadjaran'],
+            ['id' => 18, 'name' => 'Universitas Katolik Parahyangan'],
+            ['id' => 19, 'name' => 'Universitas Negeri Malang'],
+        ];
+        return view('dashboard.student.edit', compact('student', 'divisions', 'university'));
     }
 
     /**
@@ -192,7 +247,7 @@ class StudentController extends Controller
         $rules = [
             'name' => 'required|string',
             'gender' => 'required|in:Laki - Laki,Perempuan',
-            'phone' => 'required|numeric',
+            'phone' => 'required',
             'point' => 'required|numeric',
             'rombel' => 'required',
             'photo' => 'sometimes|image|max:4098',
@@ -209,17 +264,13 @@ class StudentController extends Controller
             $photoPath = $request->file('photo')->storeAs('student/photo', $validatedData['photo']);
         }
 
-        list($gradeId, $majorId, $groupId) = explode(' ', $validatedData['rombel']);
-
         Student::findOrFail($student->id)->update([
-            'grade_id' => $gradeId,
-            'major_id' => $majorId,
-            'group_id' => $groupId,
             'name' => $validatedData['name'],
             'gender' => $validatedData['gender'],
             'phone' => $validatedData['phone'],
             'photo' => $validatedData['photo'],
-            'point' => $validatedData['point']
+            'point' => $validatedData['point'],
+            'divisi' => $validatedData['rombel']
         ]);
 
         return redirect('/student')->with('success', 'Siswa Berhasil Diupdate');
