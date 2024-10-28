@@ -14,7 +14,7 @@ class Student extends Model
 
     protected $guarded = ['id'];
 
-    protected $with = [ 'user'];
+    protected $with = ['user'];
 
     /**
      * Get the grade that owns the Student
@@ -66,11 +66,15 @@ class Student extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-     // Relasi many-to-many dengan Day
+    // Relasi many-to-many dengan Day
     public function days(): BelongsToMany
     {
         return $this->belongsToMany(Day::class, 'student_days')
-                    ->withPivot('is_mandatory')
-                    ->withTimestamps();
+            ->withPivot('is_mandatory')
+            ->withTimestamps();
+    }
+    public function absentees()
+    {
+        return $this->hasMany(Absentee::class);
     }
 }

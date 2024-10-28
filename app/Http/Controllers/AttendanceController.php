@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 use App\Exports\AttendanceExport;
+use App\Models\Absentee;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
@@ -50,5 +52,55 @@ class AttendanceController extends Controller
     public function show(Attendance $attendance)
     {
         return view('dashboard.attendance.show', compact('attendance'));
+    }
+
+
+
+    public function checkAbsentees()
+    {
+        $today = Carbon::today();
+        $formattedDate = $today->translatedFormat('l, d F Y'); // Format hari, tanggal, bulan, tahun
+
+        // Dapatkan daftar semua mahasiswa
+        $allStudents = Student::all();
+
+        // Dapatkan daftar mahasiswa yang sudah hadir pada hari ini
+        $attendedStudents = Attendance::whereDate('created_at', $today)
+            ->pluck('student_id')
+            ->toArray();
+
+        // Dapatkan daftar mahasiswa yang belum hadir
+        $absentStudents = $allStudents->whereNotIn('id', $attendedStudents);
+
+        return view('student.attendance.absentees', compact('absentStudents', 'formattedDate'));
+    }
+
+
+
+    public function saveAbsentees()
+    {
+        $today = Carbon::today();
+
+        // Dapatkan semua mahasiswa
+        $allStudents = Student::all();
+
+        // Dapatkan mahasiswa yang sudah hadir hari ini
+        $attendedStudents = Attendance::whereDate('created_at', $today)
+            ->pluck('student_id')
+            ->toArray();
+
+        // Identifikasi mahasiswa yang belum hadir
+        $absentStudents = $allStudents->whereNotIn('id', $attendedStudents);
+
+        foreach ($absentStudents as $student) {
+            Absentee::create([
+                'student_id' => $student->id,
+                'date' => $today,
+                'reason' => 'Tidak hadir tanpa keterangan',
+            ]);
+        }
+
+
+        return redirect('/attendance')->with('success', 'Data ketidakhadiran berhasil disimpan');
     }
 }

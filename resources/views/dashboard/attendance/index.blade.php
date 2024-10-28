@@ -18,6 +18,13 @@
                             Export
                         </button>
                     </x-form>
+                    <div>
+                        <a href="{{ route('attendance.check_absentees') }}"><button class="bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 btn text-white w-full">
+                            Tidak Hadir Hari Ini
+                        </button></a>
+
+
+                    </div>
                 </div>
 
                 <div class="flex flex-col lg:flex-row justify-start lg:space-x-4">

@@ -53,6 +53,9 @@ Route::prefix('')->middleware(['auth'])->group(function () {
             ]);
             return redirect()->back()->with('success', 'Pengaturan Tersimpan');
         });
+
+        Route::get('/checkabsen', [AttendanceController::class, 'checkAbsentees'])->name('attendance.check_absentees');
+        Route::post('/attendance/save-absentees', [AttendanceController::class, 'saveAbsentees'])->name('attendance.save_absentees');
     });
 
     Route::group(['middleware' => ['role:admin']], function () {
