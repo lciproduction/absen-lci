@@ -139,13 +139,17 @@ class AttendanceController extends Controller
                 if ($currentTime->lt($timeOutEarly)) {
                     return response()->json(['message' => 'Waktu pulang belum dimulai']);
                 } elseif ($currentTime->between($timeOutEarly, $timeOutLate)) {
-                    if ($distance <= $radius) {
+                    if ($distance >= $radius) {
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
                     }
                     $status = 'Absen Pulang WFO';
                     $message = 'Absen Pulang WFO Berhasil';
                 } else {
+                    if ($distance >= $radius) {
+                        return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
+                    }
                     $lateMinutes = $currentTime->diffInMinutes($timeOutLate);
+
 
                     $hours = intdiv($lateMinutes, 60); // Mendapatkan jumlah jam
                     $minutes = $lateMinutes % 60; // Mendapatkan sisa menit
