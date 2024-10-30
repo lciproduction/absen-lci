@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -23,27 +24,40 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
+
+
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
+        $student = Student::where('user_id', $user->id)->first();
         $validatedData = $request->validated();
+        $path = 'student/photo';
 
+        // Check if a new photo file is uploaded
         if ($request->hasFile('photo')) {
-            $path = 'student/photo';
-            if ($user->photo) {
-                Storage::delete($path . '/' . $user->photo);
+            // Delete the old photo if it exists
+            if ($student && $student->photo) {
+                $oldPhotoPath = $path . '/' . $student->photo;
+                // Log::info('pathdelete potooooo:', ['status' => Storage::disk('public')->exists($oldPhotoPath)]);
+                // Log::info('oldPhotoPath:', ['status' => $oldPhotoPath]);
+
+                if (Storage::disk('public')->exists($oldPhotoPath)) {
+                    Storage::disk('public')->delete($oldPhotoPath);
+                }
             }
-            $validatedData['photo'] = time() . '.' . $request->file('photo')->getClientOriginalExtension();
-            $request->file('photo')->storeAs($path, $validatedData['photo']);
+
+            // Save the new photo with a unique name
+            $photoName = time() . '.' . $request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->storeAs($path, $photoName, 'public');
+            $validatedData['photo'] = $photoName;
         }
 
-        Student::where('user_id', $user->id)->update($validatedData);
+        // Update student data with validated data
+        $student->update($validatedData);
 
         return Redirect::route('profile.edit')->with('success', 'Profile updated successfully.');
     }
+
 
     /**
      * Delete the user's account.
