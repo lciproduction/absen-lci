@@ -44,7 +44,7 @@
                                     <tr class="text-white text-sm">
                                         <td class="border px-4 py-2">{{ $attendance->student->name }}</td>
                                         <td class="border px-4 py-2">{{ $attendance->status }}</td>
-                                        <td class="border px-4 py-2">{{ $attendance->created_at->format('H:i:s') }}</td>
+                                        <td class="border px-4 py-2 text-center">{{ $attendance->created_at->format('H:i') }} WIB</td>
                                     </tr>
                                 @empty
                                     <tr>
