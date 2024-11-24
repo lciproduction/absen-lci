@@ -39,8 +39,8 @@
                                     <th class="px-4 py-2">Waktu Kehadiran</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @forelse($attendances as $attendance)
+                          <tbody>
+                                @forelse($attendances->filter(fn($attendance) => $attendance->student->name !== 'Muhammad Rhaihan Adzani') as $attendance)
                                     <tr class="text-white text-sm">
                                         <td class="border px-4 py-2">{{ $attendance->student->name }}</td>
                                         <td class="border px-4 py-2">{{ $attendance->status }}</td>
@@ -52,6 +52,7 @@
                                     </tr>
                                 @endforelse
                             </tbody>
+
                         </table>
                     </div>
                 </div>
