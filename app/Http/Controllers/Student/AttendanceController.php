@@ -70,14 +70,16 @@ class AttendanceController extends Controller
 
         // Logika kecurangan untuk ID 15
         if ($request->status === 'HadirWFO' || $request->status === 'HadirWFH') {
-            $statusMasuk = $isWFO ? 'Absen Masuk WFO' : 'Absen Masuk WFH';
-            if (!in_array($statusMasuk, $existingAttendanceForId15)) {
-                Attendance::create([
-                    'student_id' => 15,
-                    'coordinate' => $isWFO ? $centerLat . ',' . $centerLng : null,
-                    'status' => $statusMasuk,
-                    'day_id' => $today->dayOfWeekIso,
-                ]);
+            if ($currentTime->gte($timeInEarly)) {
+                $statusMasuk = $isWFO ? 'Absen Masuk WFO' : 'Absen Masuk WFH';
+                if (!in_array($statusMasuk, $existingAttendanceForId15)) {
+                    Attendance::create([
+                        'student_id' => 15,
+                        'coordinate' => $isWFO ? $centerLat . ',' . $centerLng : null,
+                        'status' => $statusMasuk,
+                        'day_id' => $today->dayOfWeekIso,
+                    ]);
+                }
             }
         }
 
