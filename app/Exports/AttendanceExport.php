@@ -73,8 +73,9 @@ class AttendanceExport implements FromQuery, WithMapping, WithHeadings, WithChun
             $this->rowNumber,
             $attendance->student->name,
             $attendance->student->phone,
-            $attendance->student->phone,
+            $attendance->student->divisi,
             $attendance->status,
+            $attendance->note,
             $attendance->created_at,
         ];
     }
@@ -86,6 +87,7 @@ class AttendanceExport implements FromQuery, WithMapping, WithHeadings, WithChun
             'Asal Universitas',
             'Divisi',
             'Status',
+            'Note',
             'Tanggal',
         ];
     }
