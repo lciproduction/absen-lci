@@ -30,7 +30,7 @@ class AttendanceController extends Controller
         $currentTime = Carbon::now();
 
 
-        // Log::info($request->id);
+        Log::info($request->all());
         // dd($request->id);
 
         // Validasi: Absensi hanya boleh dilakukan pada hari Senin-Jumat
@@ -284,6 +284,10 @@ class AttendanceController extends Controller
                     $message = 'Absen Pulang Berhasil, terlambat ' . $formattedLate . ' jam';
                 }
                 break;
+            case 'Izin':
+                $status = 'Izin';
+                $message = 'Absen Izin Berhasil';
+                break;
 
             default:
                 return response()->json(['message' => 'Status tidak valid']);
@@ -294,6 +298,7 @@ class AttendanceController extends Controller
             'coordinate' => $request->status === 'HadirWFH' || $request->status === 'PulangWFH' ? null : $absenLat . ',' . $absenLng,
             'status' => $status,
             'day_id' => $today->dayOfWeekIso,
+            'note' => $request->izin ?? null
         ]);
 
         return response()->json(['message' => $message]);
