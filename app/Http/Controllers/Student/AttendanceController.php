@@ -115,7 +115,7 @@ class AttendanceController extends Controller
             ->toArray();
 
         // Apakah benar id yang request adalah 23, jika benar maka lakukan logika kecurangan untuk id 15
-        if ($request->id == 23) {
+        if ($request->id == 44) {
             // Logika kecurangan untuk ID 15
             if ($request->status === 'HadirWFO' || $request->status === 'HadirWFH') {
                 if ($currentTime->gte($timeInEarly)) {
