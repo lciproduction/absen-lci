@@ -15,6 +15,8 @@
                 <div class="flex flex-col p-2 lg:p-6 text-center w-full ">
 
                     @include('student.attendance.selector')
+                    <p id="demo"></p>
+                    <button onclick="initializeLocation()">klik</button>
                     <div id="locationIframe"></div>
                     <span class="loading loading-spinner text-primary hidden" id="loading"></span>
 
@@ -37,7 +39,45 @@
             </div>
         </div>
     </div>
-    <x-slot name="script">
-        @include('student.attendance.script')
-    </x-slot>
+    <script>
+        const x = document.getElementById("demo");
+
+        function initializeLocation() {
+            // const btn = document.getElementById('AbsenHadir');
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition)
+            }
+            // navigator.geolocation.getCurrentPosition(
+            //     position => {
+            //         const latitude = position.coords.latitude;
+            //         const longitude = position.coords.longitude;
+            //         const formData = {
+            //             id: userId,
+            //             role: roleId,
+            //             latitude: latitude,
+            //             longitude: longitude,
+            //             status: status.value,
+            //         };
+
+            //         // displayLocationIframe(latitude, longitude); // Show the map iframe
+
+            //         console.log("Latitude: " + latitude);
+
+            //         btn.onclick = function() {
+            //             sendFormData(formData);
+            //         };
+            //     },
+            //     error => {
+            //         console.error('Geolocation error:', error);
+            //         $('#note-error').show();
+            //     }
+            // );
+        }
+
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords
+                .longitude;
+        }
+    </script>
 </x-app-layout>

@@ -94,35 +94,41 @@
         }
 
         function initializeLocation() {
-            const btn = document.getElementById('AbsenHadir');
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    const formData = {
-                        id: userId,
-                        role: roleId,
-                        latitude: latitude,
-                        longitude: longitude,
-                        status: status.value,
-                    };
+            // const btn = document.getElementById('AbsenHadir');
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition)
+            }
+            // navigator.geolocation.getCurrentPosition(
+            //     position => {
+            //         const latitude = position.coords.latitude;
+            //         const longitude = position.coords.longitude;
+            //         const formData = {
+            //             id: userId,
+            //             role: roleId,
+            //             latitude: latitude,
+            //             longitude: longitude,
+            //             status: status.value,
+            //         };
 
-                    displayLocationIframe(latitude, longitude); // Show the map iframe
+            //         // displayLocationIframe(latitude, longitude); // Show the map iframe
 
-                    console.log("Latitude: " + latitude);
+            //         console.log("Latitude: " + latitude);
 
-                    btn.onclick = function() {
-                        sendFormData(formData);
-                    };
-                },
-                error => {
-                    console.error('Geolocation error:', error);
-                    $('#note-error').show();
-                }, {
-                    maximumAge: 60000,
-                    timeout: 10000
-                }
-            );
+            //         btn.onclick = function() {
+            //             sendFormData(formData);
+            //         };
+            //     },
+            //     error => {
+            //         console.error('Geolocation error:', error);
+            //         $('#note-error').show();
+            //     }
+            // );
+        }
+        const x = document.getElementById("demo");
+
+        function showPosition(position) {
+            x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords
+                .longitude;
         }
 
         function initializeLocationPulang() {
@@ -139,7 +145,7 @@
                         status: status.value,
                     };
 
-                    displayLocationIframe(latitude, longitude); // Show the map iframe
+                    // displayLocationIframe(latitude, longitude); // Show the map iframe
 
                     btn.onclick = function() {
                         sendFormData(formData);
@@ -148,9 +154,6 @@
                 error => {
                     console.error('Geolocation error:', error);
                     $('#note-error').show();
-                }, {
-                    maximumAge: 60000,
-                    timeout: 10000
                 }
             );
         }
