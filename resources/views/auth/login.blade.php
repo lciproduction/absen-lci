@@ -22,7 +22,7 @@
                         <h1 class="text-4xl font-bold mb-2">Welcome Back!</h1>
                         <p class="text-lg">Please login to your account</p>
                         <div class="mt-6">
-                            <p class="text-sm">Don't have an account yet?</p>
+                            <p class="text-sm">Don't have an account yet?a</p>
                             @if (Route::has('register'))
                                 <a href="{{ route('register') }}" class="text-sm text-blue-600 hover:underline">
                                     {{ __('Create an account') }}
