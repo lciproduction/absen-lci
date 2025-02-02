@@ -104,10 +104,12 @@
                         role: roleId,
                         latitude: latitude,
                         longitude: longitude,
-                        status: type,
+                        status: status.value,
                     };
 
                     displayLocationIframe(latitude, longitude); // Show the map iframe
+
+                    console.log("Latitude: " + latitude);
 
                     btn.onclick = function() {
                         sendFormData(formData);
@@ -116,6 +118,9 @@
                 error => {
                     console.error('Geolocation error:', error);
                     $('#note-error').show();
+                }, {
+                    maximumAge: 60000,
+                    timeout: 10000
                 }
             );
         }
@@ -131,7 +136,7 @@
                         role: roleId,
                         latitude: latitude,
                         longitude: longitude,
-                        status: type,
+                        status: status.value,
                     };
 
                     displayLocationIframe(latitude, longitude); // Show the map iframe
@@ -143,11 +148,15 @@
                 error => {
                     console.error('Geolocation error:', error);
                     $('#note-error').show();
+                }, {
+                    maximumAge: 60000,
+                    timeout: 10000
                 }
             );
         }
 
         function displayLocationIframe(latitude, longitude) {
+            console.log("Latitude: " + latitude + " Longitude: " + longitude);
             const googleMapsUrl =
                 `https://www.google.com/maps?q=${latitude},${longitude}&hl=es;z=14&output=embed`;
             locationIframe.innerHTML =
