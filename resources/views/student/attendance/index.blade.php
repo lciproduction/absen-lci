@@ -18,12 +18,13 @@
                     {{-- <p id="demo"></p>
                     <button onclick="getNavigator()">klik</button> --}}
                     <div id="locationIframe"></div>
+
                     <div id="skeletonMap" class="hidden">
 
                         <iframe class="bg-gray-200 skeleton " width="100%" height="300" frameborder="0"
                             allowfullscreen></iframe>
                         <button
-                            class="btn bg-red-secondary hover:bg-red-primary/80 text-white skeleton w-24 mt-5"></button>
+                            class="btn bg-red-secondary hover:bg-red-primary/80 text-white skeleton  mt-5 w-full"></button>
                     </div>
                     <span class="loading loading-spinner text-primary hidden" id="loading"></span>
 
@@ -90,7 +91,7 @@
             }
 
             function hideAll() {
-                $('#fileUpload, #permit, #AbsenHadir, #AbsenPulang, #sendPermit, #sendSick, #toast-top-left')
+                $('#fileUpload, #permit, #AbsenHadir,#skeletonMap, #AbsenPulang, #sendPermit, #sendSick, #toast-top-left')
                     .hide();
                 locationIframe.innerHTML = '';
             }
@@ -103,7 +104,7 @@
 
 
             function showLocationPulang() {
-                $('#AbsenPulang').show();
+                $('#skeletonMap').show();
                 initializeLocationPulang();
             }
 
@@ -157,29 +158,35 @@
 
             function initializeLocationPulang() {
                 const btn = document.getElementById('AbsenPulang');
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const latitude = position.coords.latitude;
-                        const longitude = position.coords.longitude;
-                        const formData = {
-                            id: userId,
-                            role: roleId,
-                            latitude: latitude,
-                            longitude: longitude,
-                            status: status.value,
-                        };
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        position => {
+                            const latitude = position.coords.latitude;
+                            const longitude = position.coords.longitude;
+                            const formData = {
+                                id: userId,
+                                role: roleId,
+                                latitude: latitude,
+                                longitude: longitude,
+                                status: status.value,
+                            };
 
-                        // displayLocationIframe(latitude, longitude); // Show the map iframe
+                            displayLocationIframe(latitude, longitude); // Show the map iframe
 
-                        btn.onclick = function() {
-                            sendFormData(formData);
-                        };
-                    },
-                    error => {
-                        console.error('Geolocation error:', error);
-                        $('#note-error').show();
-                    }
-                );
+                            $('#skeletonMap').hide();
+                            $('#AbsenPulang').show();
+                            btn.onclick = function() {
+                                sendFormData(formData);
+                            };
+                        },
+                        error => {
+                            console.error('Geolocation error:', error);
+                            $('#note-error').show();
+                        }
+                    );
+                } else {
+                    $('#note-error').show();
+                }
             }
 
 

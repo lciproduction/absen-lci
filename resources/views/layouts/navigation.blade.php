@@ -98,12 +98,11 @@
         </a>
         @hasrole('admin')
             <div class="dropdown dropdown-top relative ">
-                <div tabindex="0" class="flex flex-col justify-center items-center mt-[0.80rem] gap-1 bg-red-800">
+                <div tabindex="0" class="flex flex-col justify-center items-center mt-[0.80rem] gap-1 bg-red-secondary">
                     <i class="fa-solid fa-house text-white" class="h-5 w-5"></i>
                     <span class="btm-nav-label text-xs text-white">Data Master</span>
                 </div>
-                <ul tabindex="0"
-                    class="dropdown-content menu text-white rounded-box z-[1] w-52 p-2  bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500">
+                <ul tabindex="0" class="dropdown-content menu text-white rounded-box z-[1] w-52 p-2  bg-red-secondary">
                     <li><a href="{{ route('student.index') }}">Data Peserta MSIB Muda Berkreaksi</a></li>
                 </ul>
             </div>
@@ -122,13 +121,13 @@
         @endrole
         @hasrole('student')
             <a href="{{ route('student.attendance.index') }}"
-                class="{{ Request::is('siswa/attendance') ? 'active bg-red-900' : '' }}">
+                class="{{ Request::is('siswa/attendance') ? 'active bg-red-secondary' : '' }}">
                 <i class="fa-solid  fa-calendar text-white" class="h-5 w-5"></i>
                 <span class="btm-nav-label text-xs text-white">Absen</span>
             </a>
 
             <a href="{{ route('student.history.index') }}"
-                class="{{ Request::is('siswa/history') ? 'active bg-red-900' : '' }}">
+                class="{{ Request::is('siswa/history') ? 'active bg-red-secondary' : '' }}">
                 <i class="fa-solid fa-clock text-white" class="h-5 w-5"></i>
                 <span class="btm-nav-label text-xs text-white">Riwayat Absen</span>
             </a>
