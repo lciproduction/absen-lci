@@ -138,7 +138,7 @@ class AttendanceController extends Controller
                 break;
 
 
-            case 'izin':
+            case 'Izin':
                 Log::info('masuk ke case izin');
                 $request->validate([
                     'izin' => 'required|string|max:255', // Keterangan izin harus ada
@@ -147,7 +147,7 @@ class AttendanceController extends Controller
                 $message = 'Absen Izin Berhasil';
                 $note = $request->izin;
                 break;
-            case 'sakit':
+            case 'Sakit':
                 $request->validate([
                     'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // Validasi file
                 ]);

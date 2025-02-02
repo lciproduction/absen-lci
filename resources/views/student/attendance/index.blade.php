@@ -130,7 +130,7 @@
                                 role: roleId,
                                 latitude: latitude,
                                 longitude: longitude,
-                                status: status.value,
+                                status: "sendHadir",
                             };
 
                             displayLocationIframe(latitude, longitude); // Show the map iframe
@@ -168,7 +168,7 @@
                                 role: roleId,
                                 latitude: latitude,
                                 longitude: longitude,
-                                status: status.value,
+                                status: "sendPulang",
                             };
 
                             displayLocationIframe(latitude, longitude); // Show the map iframe
