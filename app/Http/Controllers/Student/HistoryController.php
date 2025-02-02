@@ -17,8 +17,8 @@ class HistoryController extends Controller
     {
         $student = Auth::user()->student;
 
-        $dateStart = Carbon::createFromDate(2024, 9, 1);
-        $dateEnd = $dateStart->copy()->addMonths(3)->endOfMonth();
+        $dateStart = Carbon::createFromDate(2025, 2, 2);
+        $dateEnd = $dateStart->copy()->addMonths(6)->endOfMonth();
 
         $periodDays = CarbonPeriod::create($dateStart, '1 day', $dateEnd);
         $dates = [];

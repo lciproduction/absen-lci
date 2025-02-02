@@ -16,10 +16,13 @@ export default {
                 poppins: ["Poppins", "sans-serif"],
             },
             colors: {
-                body: "#1A1A19",
-                "red-primary": "#7f1d1d",
-                "red-secondary": "#c53030",
-                "yellow-primary": "#F59E0B",
+                body: "#FBF6E9",
+                "red-primary": "#73c2fb",
+                "red-secondary": "#578FCA",
+                "yellow-primary": "#185519",
+            },
+            backgroundImage: {
+                login: "url('/assets/home/cover.jpg')",
             },
         },
     },

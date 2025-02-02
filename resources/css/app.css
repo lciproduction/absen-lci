@@ -1,7 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .bg-fbf6e9 {
+        background-color: #fbf6e9;
+    }
+    .bg-e0d7bd {
+        background-color: #e0d7bd;
+    }
+}
 
 .select2-container {
     /* The container where the selectbox is housing*/
@@ -40,7 +49,9 @@
     @apply box-border border pl-1 my-1 w-full text-base border-base-200;
 }
 
-.select2-container .select2-search--inline .select2-search__field::-webkit-search-cancel-button {
+.select2-container
+    .select2-search--inline
+    .select2-search__field::-webkit-search-cancel-button {
     @apply appearance-none;
 }
 
@@ -48,7 +59,6 @@
     /* Dropdown area after the arrow down is clicked */
     @apply absolute block w-auto box-border bg-base-100 border-solid border border-base-200 z-50 float-left;
 }
-
 
 .select2-results__options {
     @apply list-none m-0 p-0;
@@ -124,7 +134,6 @@
     white-space: nowrap !important;
 }
 
-
 /*
 
 	Default template settings:
@@ -140,22 +149,31 @@
     @apply text-gray-700;
 } */
 
-.select2-container--default .select2-selection--single .select2-selection__clear {
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__clear {
     /* Selection bar - Clear button - If this property is enabled*/
     @apply cursor-pointer float-right text-error;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__placeholder {
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__placeholder {
     /* Selection bar - Color of the placeholder text before selection - If this property is enabled */
     @apply text-primary;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
     /* Selection bar - DIV where the arrow pointing down is living*/
     @apply absolute right-0 top-0 h-10 w-8;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow b {
+.select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
     /* Arrow is a CSS triangle that does not exists in Tailwind without a package */
     @apply absolute border-solid h-0 w-0 border-t-4 border-r-4 border-b-0 border-l-4 border-neutral;
     border-color: #585858 transparent transparent transparent;
@@ -165,17 +183,23 @@
     top: 50%;
 }
 
-.select2-container--default.select2-container--disabled .select2-selection--single {
+.select2-container--default.select2-container--disabled
+    .select2-selection--single {
     /* Selection by property disabled*/
     @apply cursor-default bg-base-300;
 }
 
-.select2-container--default.select2-container--disabled .select2-selection--single .select2-selection__clear {
+.select2-container--default.select2-container--disabled
+    .select2-selection--single
+    .select2-selection__clear {
     /* Selection bar - Hide the clear cross when selection bar is disabled*/
     @apply hidden;
 }
 
-.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+.select2-container--default.select2-container--open
+    .select2-selection--single
+    .select2-selection__arrow
+    b {
     border-color: transparent transparent #888 transparent;
     border-width: 0 4px 5px 4px;
 }
@@ -184,23 +208,34 @@
     @apply p-1 min-h-full h-full border border-solid rounded shadow bg-base-100 text-primary;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__rendered {
     @apply box-border list-none m-0 px-1 min-w-full;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__rendered
+    li {
     @apply list-none;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__clear {
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__clear {
     @apply float-right cursor-pointer mt-1 mr-2 p-1;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice {
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice {
     @apply bg-base-100 border cursor-default rounded my-1 mr-1 px-2 float-left;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+.select2-container--default
+    .select2-selection--multiple
+    .select2-selection__choice__remove {
     @apply cursor-pointer inline-block mr-1;
 }
 
@@ -208,15 +243,19 @@
     @apply text-gray-700;
 } */
 
-.select2-container--default.select2-container--focus .select2-selection--multiple {
+.select2-container--default.select2-container--focus
+    .select2-selection--multiple {
     @apply border-2 outline-none;
 }
 
-.select2-container--default.select2-container--disabled .select2-selection__choice__remove {
+.select2-container--default.select2-container--disabled
+    .select2-selection__choice__remove {
     @apply hidden;
 }
 
-.select2-container--classic .select2-selection--multiple .select2-selection__choice {
+.select2-container--classic
+    .select2-selection--multiple
+    .select2-selection__choice {
     @apply bg-base-300 border-2 shadow rounded float-left cursor-default mt-1 mr-1 px-1;
 }
 
@@ -230,17 +269,17 @@
     @apply border-none bg-transparent outline-none shadow-none select-text;
 }
 
-.select2-container--default .select2-results>.select2-results__options {
+.select2-container--default .select2-results > .select2-results__options {
     /* Hight of the dropdown zone where the options or results are visible */
     @apply h-full max-h-32 overflow-y-auto;
 }
 
-.select2-container--default .select2-results__option[role=group] {
+.select2-container--default .select2-results__option[role="group"] {
     /* No clue what this does */
     @apply p-0;
 }
 
-.select2-container--default .select2-results__option[aria-selected=true] {
+.select2-container--default .select2-results__option[aria-selected="true"] {
     /* The already selected option row color */
     @apply bg-base-200 text-base-content;
 }
@@ -253,36 +292,65 @@
     padding-left: 1em;
 }
 
-.select2-container--default .select2-results__option .select2-results__option .select2-results__group {
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__group {
     padding-left: 0;
 }
 
-.select2-container--default .select2-results__option .select2-results__option .select2-results__option {
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
     margin-left: -1em;
     padding-left: 2em;
 }
 
-.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
     margin-left: -2em;
     padding-left: 3em;
 }
 
-.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
     margin-left: -3em;
     padding-left: 4em;
 }
 
-.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
     margin-left: -4em;
     padding-left: 5em;
 }
 
-.select2-container--default .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option .select2-results__option {
+.select2-container--default
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option
+    .select2-results__option {
     margin-left: -5em;
     padding-left: 6em;
 }
 
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
+.select2-container--default
+    .select2-results__option--highlighted[aria-selected] {
     /* Background color and text color of the options rows when select is open */
     @apply bg-base-200;
 }

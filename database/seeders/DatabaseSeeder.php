@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             TeacherSeeder::class,
             TimeSeeder::class,
-            DaysTableSeeder::class
+
         ]);
     }
 }

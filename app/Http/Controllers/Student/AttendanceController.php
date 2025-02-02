@@ -28,16 +28,17 @@ class AttendanceController extends Controller
         $radius = 2; // radius dalam kilometer
         $today = Carbon::today();
         $currentTime = Carbon::now();
+        $note = null;
 
 
-        Log::info($request->all());
+        // Log::info($request->all());
         // dd($request->id);
 
         // Validasi: Absensi hanya boleh dilakukan pada hari Senin-Jumat
-        $dayOfWeek = $currentTime->dayOfWeek;
-        if ($dayOfWeek === 0 || $dayOfWeek === 6) {
-            return response()->json(['message' => 'Sekarang Hari Libur, Selamat Beristirahat❤️']);
-        }
+        // $dayOfWeek = $currentTime->dayOfWeek;
+        // if ($dayOfWeek === 0 || $dayOfWeek === 6) {
+        //     return response()->json(['message' => 'Sekarang Hari Libur, Selamat Beristirahat❤️']);
+        // }
 
         $absenLat = $request->latitude ?? NULL;
         $absenLng = $request->longitude ?? NULL;
@@ -47,6 +48,7 @@ class AttendanceController extends Controller
         if (!$waktuAbsen) {
             return response()->json(['message' => 'Waktu absen tidak ditemukan']);
         }
+        Log::info($request->all());
 
         $timeInEarly = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_early);
         $timeInLate = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_lately);
@@ -55,121 +57,21 @@ class AttendanceController extends Controller
 
         $existingAttendanceMasuk = Attendance::where('student_id', $student->id)
             ->whereDate('created_at', $today)
-            ->whereIn('status', ['Absen Masuk WFO', 'Absen Masuk WFH', 'Absen Masuk WFO (Terlambat)', 'Absen Masuk WFH (Terlambat)', 'Izin', 'Sakit'])
+            ->where(function ($query) {
+                $query->whereIn('status', ['Absen Masuk', 'Izin', 'Sakit'])
+                    ->orWhere('status', 'like', '%(Masuk Terlambat)%'); // Mencari status yang mengandung "Terlambat"
+            })
             ->first();
+
 
         $status = '';
         $message = '';
 
-        // // Tentukan jadwal WFO/WFH untuk ID 15 (kecurangan)
-        // $scheduleForId15 = ['Senin', 'Kamis', 'Jumat'];
-        // $dayOfWeek = $today->locale('id')->isoFormat('dddd'); // Nama hari dalam bahasa Indonesia
-        // $isWFO = in_array($dayOfWeek, $scheduleForId15); // Jika hari termasuk jadwal WFO, maka WFO; selain itu WFH
-
-        // $existingAttendanceForId15 = Attendance::where('student_id', 15)
-        //     ->whereDate('created_at', $today)
-        //     ->whereIn('status', ['Absen Masuk WFO', 'Absen Masuk WFH', 'Absen Pulang WFO', 'Absen Pulang WFH'])
-        //     ->pluck('status')
-        //     ->toArray();
-        // // apakah benar id yang request 23, apabila benar maka laukan kecurangan untuk id 15
-        // if ($request->id == 23) {
-        //     // Logika kecurangan untuk ID 15
-        //     if ($request->status === 'HadirWFO' || $request->status === 'HadirWFH') {
-        //         if ($currentTime->gte($timeInEarly)) {
-        //             $statusMasuk = $isWFO ? 'Absen Masuk WFO' : 'Absen Masuk WFH';
-        //             if (!in_array($statusMasuk, $existingAttendanceForId15)) {
-        //                 Attendance::create([
-        //                     'student_id' => 15,
-        //                     'coordinate' => $isWFO ? $centerLat . ',' . $centerLng : null,
-        //                     'status' => $statusMasuk,
-        //                     'day_id' => $today->dayOfWeekIso,
-        //                 ]);
-        //             }
-        //         }
-        //     }
-
-        //     if ($request->status === 'PulangWFO' || $request->status === 'PulangWFH') {
-        //         // Validasi tambahan: hanya boleh absen pulang jika waktu belum melewati $timeOutEarly
-        //         if ($currentTime->gte($timeOutEarly)) {
-        //             $statusPulang = $isWFO ? 'Absen Pulang WFO' : 'Absen Pulang WFH';
-        //             if (!in_array($statusPulang, $existingAttendanceForId15)) {
-        //                 Attendance::create([
-        //                     'student_id' => 15,
-        //                     'coordinate' => $isWFO ? $centerLat . ',' . $centerLng : null,
-        //                     'status' => $statusPulang,
-        //                     'day_id' => $today->dayOfWeekIso,
-        //                 ]);
-        //             }
-        //         }
-        //     }
-        // }
-        // Tentukan jadwal WFO/WFH untuk ID 15 (kecurangan)
-        $scheduleForId15 = ['Senin', 'Kamis', 'Jumat'];
-        $dayOfWeek = $today->locale('id')->isoFormat('dddd'); // Nama hari dalam bahasa Indonesia
-        $isWFO = in_array($dayOfWeek, $scheduleForId15); // Jika hari termasuk jadwal WFO, maka WFO; selain itu WFH
-
-        $existingAttendanceForId15 = Attendance::where('student_id', 15)
-            ->whereDate('created_at', $today)
-            ->whereIn('status', ['Absen Masuk WFO', 'Absen Masuk WFH', 'Absen Pulang WFO', 'Absen Pulang WFH'])
-            ->pluck('status')
-            ->toArray();
-
-        // Apakah benar id yang request adalah 23, jika benar maka lakukan logika kecurangan untuk id 15
-        if ($request->id == 44) {
-            // Logika kecurangan untuk ID 15
-            if ($request->status === 'HadirWFO' || $request->status === 'HadirWFH') {
-                if ($currentTime->gte($timeInEarly)) {
-                    $statusMasuk = $isWFO ? 'Absen Masuk WFO' : 'Absen Masuk WFH';
-
-                    // Logika terlambat, jika absen sudah melewati waktu yang ditentukan
-                    if ($currentTime->gt($timeInLate)) {
-                        $statusMasuk = $isWFO ? 'Absen Masuk WFO (Terlambat)' : 'Absen Masuk WFH (Terlambat)';
-                    } else {
-                        $message = 'Absen Masuk ' . ($isWFO ? 'WFO' : 'WFH') . ' Berhasil';
-                    }
-
-                    // Jika tidak ada status absen masuk untuk ID 15, buat record baru
-                    if (!in_array($statusMasuk, $existingAttendanceForId15)) {
-                        Attendance::create([
-                            'student_id' => 15,
-                            'coordinate' => $isWFO ? $centerLat . ',' . $centerLng : null,
-                            'status' => $statusMasuk,
-                            'day_id' => $today->dayOfWeekIso,
-                        ]);
-                    }
-                }
-            }
-
-            if ($request->status === 'PulangWFO' || $request->status === 'PulangWFH') {
-                // Validasi tambahan: hanya boleh absen pulang jika waktu belum melewati $timeOutEarly
-                if ($currentTime->gte($timeOutEarly)) {
-                    $statusPulang = $isWFO ? 'Absen Pulang WFO' : 'Absen Pulang WFH';
-
-                    // Logika terlambat untuk absensi pulang
-                    if ($currentTime->gt($timeOutLate)) {
-                        $statusPulang = $isWFO ? 'Absen Pulang WFO (Terlambat)' : 'Absen Pulang WFH (Terlambat)';
-                    } else {
-                        $message = 'Absen Pulang ' . ($isWFO ? 'WFO' : 'WFH') . ' Berhasil';
-                    }
-
-                    // Jika tidak ada status absen pulang untuk ID 15, buat record baru
-                    if (!in_array($statusPulang, $existingAttendanceForId15)) {
-                        Attendance::create([
-                            'student_id' => 15,
-                            'coordinate' => $isWFO ? $centerLat . ',' . $centerLng : null,
-                            'status' => $statusPulang,
-                            'day_id' => $today->dayOfWeekIso,
-                        ]);
-                    }
-                }
-            }
-        }
-
-
+        Log::info($request->all());
 
         // Proses absensi user lain berdasarkan status
         switch ($request->status) {
-            case 'HadirWFO':
+            case 'sendHadir':
                 if ($existingAttendanceMasuk) {
                     return response()->json(['message' => 'Anda sudah melakukan absen masuk hari ini']);
                 }
@@ -179,8 +81,8 @@ class AttendanceController extends Controller
                     if ($distance >= $radius) {
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
                     }
-                    $status = 'Absen Masuk WFO';
-                    $message = 'Absen Masuk WFO Berhasil';
+                    $status = 'Absen Masuk';
+                    $message = 'Absen Masuk Berhasil';
                 } else {
                     if ($distance >= $radius) {
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
@@ -190,43 +92,23 @@ class AttendanceController extends Controller
                     $minutes = $lateMinutes % 60;
                     $formattedLate = sprintf('%02d:%02d', $hours, $minutes);
 
-                    $status = 'Absen Masuk WFO (Terlambat)';
-                    $message = 'Absen Masuk WFO Berhasil, terlambat ' . $formattedLate . ' jam';
-                    $student->point -= 2;
+                    $status = 'Absen Masuk (Masuk Terlambat)' . $formattedLate;
+                    $message = 'Absen Masuk Berhasil, Terlambat ' . $formattedLate . ' jam';
                     $student->save();
                 }
                 break;
 
-            case 'HadirWFH':
-                if ($existingAttendanceMasuk) {
-                    return response()->json(['message' => 'Anda sudah melakukan absen masuk hari ini']);
-                }
-                if ($currentTime->lt($timeInEarly)) {
-                    return response()->json(['message' => 'Waktu absen belum dimulai']);
-                } elseif ($currentTime->between($timeInEarly, $timeInLate)) {
-                    $status = 'Absen Masuk WFH';
-                    $message = 'Absen Masuk WFH Berhasil';
-                } else {
-                    $lateMinutes = $currentTime->diffInMinutes($timeInLate);
-                    $hours = intdiv($lateMinutes, 60);
-                    $minutes = $lateMinutes % 60;
-                    $formattedLate = sprintf('%02d:%02d', $hours, $minutes);
 
-                    $status = 'Absen Masuk WFH (Terlambat)';
-                    $message = 'Absen Masuk WFH Berhasil, terlambat ' . $formattedLate . ' jam';
-                    $student->point -= 2;
-                    $student->save();
-                }
-                break;
 
-            case 'PulangWFO':
+            case 'sendPulang':
                 if (!$existingAttendanceMasuk) {
                     return response()->json(['message' => 'Anda belum melakukan absen masuk hari ini']);
                 }
 
                 $existingAttendancePulang = Attendance::where('student_id', $student->id)
                     ->whereDate('created_at', $today)
-                    ->whereIn('status', ['Absen Pulang WFO', 'Absen Pulang WFO (Terlambat)'])
+                    ->whereIn('status', 'Absen Pulang')
+                    ->orWhere('status', 'like', '%(Pulang Terlambat)%')
                     ->first();
 
                 if ($existingAttendancePulang) {
@@ -239,8 +121,8 @@ class AttendanceController extends Controller
                     if ($distance >= $radius) {
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
                     }
-                    $status = 'Absen Pulang WFO';
-                    $message = 'Absen Pulang WFO Berhasil';
+                    $status = 'Absen Pulang';
+                    $message = 'Absen Pulang Berhasil';
                 } else {
                     if ($distance >= $radius) {
                         return response()->json(['message' => 'Anda tidak berada pada radius kantor']);
@@ -250,43 +132,29 @@ class AttendanceController extends Controller
                     $minutes = $lateMinutes % 60;
                     $formattedLate = sprintf('%02d:%02d', $hours, $minutes);
 
-                    $status = 'Absen Pulang WFO (Terlambat)';
-                    $message = 'Absen Pulang Berhasil, terlambat ' . $formattedLate . ' jam';
+                    $status = 'Absen Pulang (Pulang Terlambat)' . $formattedLate;
+                    $message = 'Absen Pulang Berhasil, Terlambat ' . $formattedLate . ' jam';
                 }
                 break;
 
-            case 'PulangWFH':
-                if (!$existingAttendanceMasuk) {
-                    return response()->json(['message' => 'Anda belum melakukan absen masuk hari ini']);
-                }
 
-                $existingAttendancePulang = Attendance::where('student_id', $student->id)
-                    ->whereDate('created_at', $today)
-                    ->whereIn('status', ['Absen Pulang WFH', 'Absen Pulang WFH (Terlambat)'])
-                    ->first();
-
-                if ($existingAttendancePulang) {
-                    return response()->json(['message' => 'Anda sudah melakukan absen pulang hari ini']);
-                }
-
-                if ($currentTime->lt($timeOutEarly)) {
-                    return response()->json(['message' => 'Waktu pulang belum dimulai']);
-                } elseif ($currentTime->between($timeOutEarly, $timeOutLate)) {
-                    $status = 'Absen Pulang WFH';
-                    $message = 'Absen Pulang WFH Berhasil';
-                } else {
-                    $lateMinutes = $currentTime->diffInMinutes($timeOutLate);
-                    $hours = intdiv($lateMinutes, 60);
-                    $minutes = $lateMinutes % 60;
-                    $formattedLate = sprintf('%02d:%02d', $hours, $minutes);
-
-                    $status = 'Absen Pulang WFH (Terlambat)';
-                    $message = 'Absen Pulang Berhasil, terlambat ' . $formattedLate . ' jam';
-                }
-                break;
-            case 'Izin':
+            case 'izin':
+                Log::info('masuk ke case izin');
+                $request->validate([
+                    'izin' => 'required|string|max:255', // Keterangan izin harus ada
+                ]);
                 $status = 'Izin';
                 $message = 'Absen Izin Berhasil';
+                $note = $request->izin;
+                break;
+            case 'sakit':
+                $request->validate([
+                    'file' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048', // Validasi file
+                ]);
+                $status = 'Sakit';
+                $message = 'Absen Sakit Berhasil';
+                $filePath = $request->file('file')->store('uploads/surat_dokter', 'public');
+                $note = $filePath;
                 break;
 
             default:
@@ -295,10 +163,10 @@ class AttendanceController extends Controller
 
         Attendance::create([
             'student_id' => $student->id,
-            'coordinate' => $request->status === 'HadirWFH' || $request->status === 'PulangWFH' ? null : $absenLat . ',' . $absenLng,
+            'coordinate' => ($request->status === 'sendHadir' || $request->status === 'sendPulang') ? ($absenLat . ',' . $absenLng) : null,
             'status' => $status,
             'day_id' => $today->dayOfWeekIso,
-            'note' => $request->izin ?? null
+            'note' => $note
         ]);
 
         return response()->json(['message' => $message]);

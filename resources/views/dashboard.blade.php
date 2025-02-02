@@ -11,11 +11,7 @@
                             <div class="w-20 flex">
                                 <canvas id="chart" width="10" height="10"></canvas>
                             </div>
-                            {{-- <div class="text-white">
-                    <p>Hadir: {{ $hadir }}</p>
-                    <p>Sakit: {{ $sakit }}</p>
-                    <p>Izin: {{ $izin }}</p>
-                 </div> --}}
+
                         </div>
                     </div>
             </div>
@@ -27,22 +23,23 @@
             @include('partials.student')
 
             <!-- Tabel Absensi untuk Student -->
-            <div class="bg-gradient-to-tr from-red-950 to-red-700 overflow-hidden shadow-sm sm:rounded-lg mt-6">
-                <div class="p-6 bg-gradient-to-tr from-red-950 to-red-700 border-b border-gray-200">
-                    <h2 class="font-semibold text-xl  leading-tight text-white">
+            <div
+                class="bg-gradient-to-tr from-red-primary to-red-secondary overflow-hidden shadow-sm sm:rounded-lg w-[98%] mx-auto rounded-lg">
+                <div class="p-6 bg-gradient-to-tr from-red-primary to-red-secondary border-b border-gray-200">
+                    <h2 class="font-semibold text-xl  leading-tight text-white border-b border-white">
                         Data Absensi
                     </h2>
                     <table class="table-auto w-full mt-4">
                         <thead>
-                            <tr class="text-white text-[12px]">
-                                <th class="px-4 py-2">Nama Siswa</th>
+                            <tr class="text-white text-[10px] md:text-[12px]">
+                                <th class="px-4 py-2">Nama</th>
                                 <th class="px-4 py-2">Status</th>
-                                <th class="px-4 py-2">Waktu Kehadiran</th>
+                                <th class="px-4 py-2">Waktu </th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse($attendances as $attendance)
-                                <tr class="text-white text-sm">
+                                <tr class="text-white text-[10px] md:text-[12px]">
                                     <td class="border px-4 py-2">{{ $attendance->student->name }}</td>
                                     <td class="border px-4 py-2">{{ $attendance->status }}</td>
                                     <td class="border px-4 py-2 text-center">{{ $attendance->created_at->format('H:i') }}
@@ -60,11 +57,45 @@
                 </div>
             </div>
 
+
             <div
-                class="container mx-auto p-4 bg-gradient-to-tr from-red-950 to-red-700 border-b border-gray-200 mt-5 shadow-md rounded-lg">
-                <h3 class="text-2xl font-bold text-center mb-4 text-white">
-                    Daftar Siswa Tidak Hadir pada Hari Wajib ({{ Carbon\Carbon::now()->isoFormat('dddd') }})
-                </h3>
+                class="bg-gradient-to-tr from-red-primary to-red-secondary overflow-hidden shadow-sm sm:rounded-lg mt-5 w-[98%] mx-auto rounded-lg">
+                <div class="p-6 bg-gradient-to-tr from-red-primary to-red-secondary border-b border-gray-200">
+                    <h2 class="font-semibold text-xl  leading-tight text-white border-b border-white">
+                        Data Yang Belum Hadir
+                    </h2>
+                    <table class="table-auto w-full mt-4">
+                        <thead>
+                            <tr class="text-white text-[10px] md:text-[12px]">
+                                <th class="px-4 py-2">Nama</th>
+                                <th class="px-4 py-2">Divisi</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($absentStudents as $student)
+                                <tr class="text-white text-[10px] md:text-[12px]">
+                                    <td class="border px-4 py-2">{{ $student->name }}</td>
+                                    <td class="border px-4 py-2">{{ $student->divisi }}</td>
+
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="text-center px-4 py-2 text-white">Tidak ada data absensi untuk
+                                        hari ini.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            {{-- <div
+                class="container mx-auto p-4 bg-gradient-to-tr from-red-primary to-red-secondary border-b border-gray-200 mt-5 shadow-md rounded-lg">
+                <h2 class="font-semibold text-[16px]  leading-tight text-white border-b border-white">
+                    Daftar Karyawan yang Belum Hadir Hari Ini
+                </h2>
 
                 <!-- Menampilkan pesan jika ada -->
                 @if (isset($message))
@@ -74,13 +105,13 @@
                 @endif
 
                 @if ($studentsAbsent->isEmpty())
-                    <p class="text-center text-white">Tidak ada siswa yang absen pada hari ini.</p>
+                    <p class="text-center text-white">Tidak ada yang belum absen pada hari ini.</p>
                 @else
                     <div class="overflow-x-auto">
                         <table class="table w-full border-collapse rounded-lg overflow-hidden shadow-lg">
-                            <thead class="bg-red-900 text-white">
+                            <thead class="bg-red-secondary text-white">
                                 <tr>
-                                    <th class="p-3 text-left">Nama Siswa</th>
+                                    <th class="p-3 text-left">Nama </th>
                                     <th class="p-3 text-left">Divisi</th>
                                 </tr>
                             </thead>
@@ -95,7 +126,7 @@
                         </table>
                     </div>
                 @endif
-            </div>
+            </div> --}}
 
 
 

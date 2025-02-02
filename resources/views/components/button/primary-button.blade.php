@@ -1,3 +1,3 @@
-<button {!! $attributes->merge(['class' => 'btn bg-gradient-to-tr from-red-950 to-red-700 text-white']) !!}>
+<button {!! $attributes->merge(['class' => 'btn bg-red-secondary hover:bg-red-primary/80 text-white']) !!}>
     {{ $slot }}
 </button>

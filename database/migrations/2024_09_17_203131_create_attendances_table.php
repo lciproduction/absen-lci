@@ -15,7 +15,6 @@ return new class extends Migration {
 
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->foreignId('schedule_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('day_id')->constrained()->onDelete('cascade');
             $table->string('coordinate')->nullable();
             $table->string('status')->comment('masuk,pulang,wfh,izin,sakit,terlambat');
             $table->string('note')->nullable();

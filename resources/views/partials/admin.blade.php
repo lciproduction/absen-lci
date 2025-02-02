@@ -1,4 +1,4 @@
-<x-card.card-default class="static bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 mx-auto">
+<x-card.card-default class="static bg-gradient-to-tr from-red-primary to-red-secondary border-4 border-white mx-auto">
     <div class="w-full h-full">
         <div class="flex gap-6 w-full flex-col justify-center items-center lg:flex-row">
             <img src="{{ asset('assets/images/admin1.svg') }}" class="md:max-w-sm max-w-40 rounded-lg object-cover" />
@@ -24,7 +24,7 @@
         <div class="hero-content flex-col lg:flex-row-reverse">
             <img src="{{ asset('assets/images/admin2.svg') }}" class="md:max-w-sm max-w-40 rounded-lg object-cover" />
             <div>
-                <p class="py-6 text-white">
+                <p class="py-6 text-red-secondary font-semibold">
                     "Daftar guru yang terdaftar dalam sistem absensi. Anda dapat melihat informasi seperti nama guru,
                     mata pelajaran yang diampu, dan kelas yang diajar. Pastikan data yang ditampilkan sudah sesuai
                     dengan catatan sekolah."
@@ -39,7 +39,7 @@
     </div>
 </section>
 
-<section class="py-20 bg-gradient-to-tr from-red-950 to-red-700 shadow-inner shadow-yellow-500 rounded p-8">
+{{-- <section class="py-20 bg-gradient-to-tr from-red-primary to-red-secondary border-4 border-white rounded p-8">
     <div class="grid lg:grid-cols-3 gap-6 grid-cols-1 md:grid-cols-2">
         <x-card.card-default class="static">
             <h2 class=" text-yellow-500 text-center font-bold text-lg">Matematika</h2>
@@ -65,7 +65,7 @@
             Data Mapel
         </x-button.primary-button>
     </div>
-</section>
+</section> --}}
 
 <section class="py-20 p-8">
     <div class="w-full h-full">
@@ -73,7 +73,7 @@
             <img src="{{ asset('assets/images/admin3.svg') }}" class="md:max-w-sm max-w-40 rounded-lg object-cover" />
             <div class="w-full">
                 <div>
-                    <p class="text-left text-white">
+                    <p class="text-left text-red-secondary font-semibold">
                         "Data absensi harian yang mencakup daftar siswa/guru yang hadir, terlambat, atau absen. Data ini
                         akan diperbarui secara otomatis setiap kali absensi diisi. Silakan periksa dan pastikan semua
                         informasi telah tercatat dengan benar."

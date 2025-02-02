@@ -9,11 +9,13 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-  public function up(): void
+    public function up(): void
     {
-        Schema::create('days', function (Blueprint $table) {
+        Schema::create('acara', function (Blueprint $table) {
             $table->id();
-            $table->string('name');  // Nama hari (misalnya, Senin, Selasa)
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('tanggal_pelaksanaan');
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('days');
+        Schema::dropIfExists('acara');
     }
 };

@@ -14,6 +14,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Day;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -28,7 +30,7 @@ class StudentController extends Controller
         if ($request->ajax()) {
 
             // Ambil data dari tabel students
-            $students = Student::select(['id', 'nisn', 'name', 'phone', 'divisi']);
+            $students = Student::select(['id', 'name', 'email', 'divisi']);
             // Cek apakah ada input divisi untuk filtering
             if ($request->has('divisi') && $request->input('divisi') != 'All' && $request->input('divisi') != null) {
                 $divisi = $request->input('divisi');
@@ -38,10 +40,11 @@ class StudentController extends Controller
             return DataTables::of($students)
                 ->addIndexColumn() // Menambahkan nomor urut
                 ->addColumn('nama_mahasiswa', function ($row) {
+
                     return $row->name;
                 })
-                ->addColumn('phone', function ($row) {
-                    return $row->phone;
+                ->addColumn('email', function ($row) {
+                    return $row->email;
                 })
                 ->addColumn('divisi', function ($row) {
                     // Menampilkan rombel statis atau sesuai relasi jika ada
@@ -103,7 +106,7 @@ class StudentController extends Controller
         // $majors = Major::where('status', 1)->pluck('acronym', 'id');
         // $groups = Group::where('status', 1)->pluck('number', 'id');
 
-        $days = Day::all();  // Ambil daftar hari dari tabel days
+        // $days = Day::all();  // Ambil daftar hari dari tabel days
 
         // Daftar Divisi
         $divisions = [
@@ -114,32 +117,32 @@ class StudentController extends Controller
             ['id' => 5, 'name' => 'Social Media Specialist'],
         ];
 
-        $university = [
-            ['id' => 1, 'name' => 'Universitas Indonesia'],
-            ['id' => 2, 'name' => 'Universitas Udayana'],
-            ['id' => 3, 'name' => 'Universitas Diponegoro'],
-            ['id' => 4, 'name' => 'Universitas Hasanuddin'],
-            ['id' => 5, 'name' => 'Universitas Brawijaya'],
-            ['id' => 6, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
-            ['id' => 7, 'name' => 'Universitas Negeri Jakarta'],
-            ['id' => 8, 'name' => 'President University'],
-            [
-                'id' => 9,
-                'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'
-            ],
-            ['id' => 10, 'name' => 'Universitas Widyatama'],
-            ['id' => 11, 'name' => 'Universitas Pembangunan Jaya'],
-            ['id' => 12, 'name' => 'Universitas Mercu Buana'],
-            ['id' => 13, 'name' => 'Universitas Gunadarma'],
-            ['id' => 14, 'name' => 'Universitas Pendidikan Indonesia'],
-            ['id' => 15, 'name' => 'UPN Veteran Jakarta'],
-            ['id' => 16, 'name' => 'Universitas Airlangga'],
-            ['id' => 17, 'name' => 'Universitas Padjadjaran'],
-            ['id' => 18, 'name' => 'Universitas Katolik Parahyangan'],
-            ['id' => 19, 'name' => 'Universitas Negeri Malang'],
-        ];
+        // $university = [
+        //     ['id' => 1, 'name' => 'Universitas Indonesia'],
+        //     ['id' => 2, 'name' => 'Universitas Udayana'],
+        //     ['id' => 3, 'name' => 'Universitas Diponegoro'],
+        //     ['id' => 4, 'name' => 'Universitas Hasanuddin'],
+        //     ['id' => 5, 'name' => 'Universitas Brawijaya'],
+        //     ['id' => 6, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
+        //     ['id' => 7, 'name' => 'Universitas Negeri Jakarta'],
+        //     ['id' => 8, 'name' => 'President University'],
+        //     [
+        //         'id' => 9,
+        //         'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'
+        //     ],
+        //     ['id' => 10, 'name' => 'Universitas Widyatama'],
+        //     ['id' => 11, 'name' => 'Universitas Pembangunan Jaya'],
+        //     ['id' => 12, 'name' => 'Universitas Mercu Buana'],
+        //     ['id' => 13, 'name' => 'Universitas Gunadarma'],
+        //     ['id' => 14, 'name' => 'Universitas Pendidikan Indonesia'],
+        //     ['id' => 15, 'name' => 'UPN Veteran Jakarta'],
+        //     ['id' => 16, 'name' => 'Universitas Airlangga'],
+        //     ['id' => 17, 'name' => 'Universitas Padjadjaran'],
+        //     ['id' => 18, 'name' => 'Universitas Katolik Parahyangan'],
+        //     ['id' => 19, 'name' => 'Universitas Negeri Malang'],
+        // ];
 
-        return view('dashboard.student.create', compact('divisions', 'days', 'university'));
+        return view('dashboard.student.create', compact('divisions'));
     }
 
 
@@ -150,14 +153,15 @@ class StudentController extends Controller
     {
         // dd($request->all());
         $validatedData = $request->validate([
-            'nisn' => 'required',
             'name' => 'required|string',
             'username' => 'required|string',
             'gender' => 'required|in:Laki - Laki,Perempuan',
             'phone' => 'required',
             'rombel' => 'required',
             'photo' => 'nullable|image|max:4098',
-            'days' => 'required|array', // Validasi untuk hari wajib
+            'email' => 'required|email',
+            'jabatan' => 'required',
+            'nisn' => 'required',
         ]);
 
         // Note : Rombel = Kelas yang diisi Divisi
@@ -181,18 +185,17 @@ class StudentController extends Controller
         $student = Student::create([
 
             'user_id' => $user->id,
-            'nisn' => $validatedData['nisn'],
             'name' => $validatedData['name'],
             'username' => $validatedData['username'],
+            'jabatan' => $validatedData['jabatan'],
             'gender' => $validatedData['gender'],
             'divisi' => $validatedData['rombel'],
             'phone' => $validatedData['phone'],
+            'email' => $validatedData['email'],
             'photo' => $fileFilename ?? NULL,
-            'point' => 100
+            'point' => 1000000
         ]);
 
-        // Simpan hari wajib yang dipilih ke dalam tabel pivot student_days
-        $student->days()->sync($validatedData['days']);  // Menyimpan hari wajib siswa
 
         return redirect('/student')->with('success', 'Siswa Berhasil Ditambahkan!');
     }
@@ -203,6 +206,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+        // $user = $student->user->password;
+
+        // dd($user);
 
 
         $divisions = [
@@ -212,31 +218,31 @@ class StudentController extends Controller
             ['id' => 4, 'name' => 'Design Grafis'],
             ['id' => 5, 'name' => 'Social Media Specialist'],
         ];
-        $university = [
-            ['id' => 1, 'name' => 'Universitas Indonesia'],
-            ['id' => 2, 'name' => 'Universitas Udayana'],
-            ['id' => 3, 'name' => 'Universitas Diponegoro'],
-            ['id' => 4, 'name' => 'Universitas Hasanuddin'],
-            ['id' => 5, 'name' => 'Universitas Brawijaya'],
-            ['id' => 6, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
-            ['id' => 7, 'name' => 'Universitas Negeri Jakarta'],
-            ['id' => 8, 'name' => 'President University'],
-            [
-                'id' => 9,
-                'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'
-            ],
-            ['id' => 10, 'name' => 'Universitas Widyatama'],
-            ['id' => 11, 'name' => 'Universitas Pembangunan Jaya'],
-            ['id' => 12, 'name' => 'Universitas Mercu Buana'],
-            ['id' => 13, 'name' => 'Universitas Gunadarma'],
-            ['id' => 14, 'name' => 'Universitas Pendidikan Indonesia'],
-            ['id' => 15, 'name' => 'UPN Veteran Jakarta'],
-            ['id' => 16, 'name' => 'Universitas Airlangga'],
-            ['id' => 17, 'name' => 'Universitas Padjadjaran'],
-            ['id' => 18, 'name' => 'Universitas Katolik Parahyangan'],
-            ['id' => 19, 'name' => 'Universitas Negeri Malang'],
-        ];
-        return view('dashboard.student.edit', compact('student', 'divisions', 'university'));
+        // $university = [
+        //     ['id' => 1, 'name' => 'Universitas Indonesia'],
+        //     ['id' => 2, 'name' => 'Universitas Udayana'],
+        //     ['id' => 3, 'name' => 'Universitas Diponegoro'],
+        //     ['id' => 4, 'name' => 'Universitas Hasanuddin'],
+        //     ['id' => 5, 'name' => 'Universitas Brawijaya'],
+        //     ['id' => 6, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
+        //     ['id' => 7, 'name' => 'Universitas Negeri Jakarta'],
+        //     ['id' => 8, 'name' => 'President University'],
+        //     [
+        //         'id' => 9,
+        //         'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'
+        //     ],
+        //     ['id' => 10, 'name' => 'Universitas Widyatama'],
+        //     ['id' => 11, 'name' => 'Universitas Pembangunan Jaya'],
+        //     ['id' => 12, 'name' => 'Universitas Mercu Buana'],
+        //     ['id' => 13, 'name' => 'Universitas Gunadarma'],
+        //     ['id' => 14, 'name' => 'Universitas Pendidikan Indonesia'],
+        //     ['id' => 15, 'name' => 'UPN Veteran Jakarta'],
+        //     ['id' => 16, 'name' => 'Universitas Airlangga'],
+        //     ['id' => 17, 'name' => 'Universitas Padjadjaran'],
+        //     ['id' => 18, 'name' => 'Universitas Katolik Parahyangan'],
+        //     ['id' => 19, 'name' => 'Universitas Negeri Malang'],
+        // ];
+        return view('dashboard.student.edit', compact('student', 'divisions'));
     }
 
     /**
@@ -246,12 +252,17 @@ class StudentController extends Controller
     {
         $rules = [
             'name' => 'required|string',
+            'username' => 'required|string',
             'gender' => 'required|in:Laki - Laki,Perempuan',
             'phone' => 'required',
-            'point' => 'required|numeric',
-            'rombel' => 'required',
-            'photo' => 'sometimes|image|max:4098',
+            'divisi' => 'required',
+            'photo' => 'nullable|image|max:4098',
+            'email' => 'required|email',
+            'jabatan' => 'required',
+            'password' => 'nullable',
         ];
+
+        // dd($request->all());
 
         $validatedData = $request->validate($rules);
         $validatedData['photo'] = $request->oldImage;
@@ -264,13 +275,20 @@ class StudentController extends Controller
             $photoPath = $request->file('photo')->storeAs('student/photo', $validatedData['photo']);
         }
 
+
+        User::findOrFail($student->user_id)->update([
+            'username' => $validatedData['username'],
+            'password' => $validatedData['password'] != null ? Hash::make($validatedData['password']) : $student->user->password,
+        ]);
+
         Student::findOrFail($student->id)->update([
             'name' => $validatedData['name'],
             'gender' => $validatedData['gender'],
             'phone' => $validatedData['phone'],
             'photo' => $validatedData['photo'],
-            'point' => $validatedData['point'],
-            'divisi' => $validatedData['rombel']
+            'email' => $validatedData['email'],
+            'divisi' => $validatedData['divisi'],
+            'jabatan' => $validatedData['jabatan'],
         ]);
 
         return redirect('/student')->with('success', 'Siswa Berhasil Diupdate');

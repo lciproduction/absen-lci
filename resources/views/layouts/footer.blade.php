@@ -1,16 +1,17 @@
+<footer
+    class="footer footer-center bg-gradient-to-t from-red-primary to-red-secondary  border-t-2 border-red-primary text-white p-10 mb-10 lg:mb-0">
+    <aside>
+        <img src="{{ asset('assets/home/logo.png') }}" alt="logo" class="w-32"
+            style="filter: drop-shadow(1px 1px 1px #ffff)">
+        <p class="font-bold text-[16px] text-white">
+            Local Champion Production
+            <br />
 
-<footer class="footer footer-center bg-gradient-to-tr from-red-950 to-red-700 border-t-2 border-yellow-500 text-white p-10 mb-10 lg:mb-0">
-  <aside>
-    <img src="{{ asset('assets/images/logoo.png') }}" alt="logo" class="w-32">
-    <p class="font-bold text-white">
-      ID Next Leader
-      <br />
-      MSIB - Muda Berkreaksi
-    </p>
-           <p class="text-white">Copyright © {{ now()->format('Y') }} - All right reserved with ❤️</p>
+        </p>
+        <p class="text-white">Copyright © {{ now()->format('Y') }} - All right reserved with ❤️</p>
 
-  </aside>
-  {{-- <nav>
+    </aside>
+    {{-- <nav>
     <div class="grid grid-flow-col gap-4">
       <a>
         <svg

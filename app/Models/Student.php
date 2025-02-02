@@ -67,12 +67,7 @@ class Student extends Model
     }
 
     // Relasi many-to-many dengan Day
-    public function days(): BelongsToMany
-    {
-        return $this->belongsToMany(Day::class, 'student_days')
-            ->withPivot('is_mandatory')
-            ->withTimestamps();
-    }
+
     public function absentees()
     {
         return $this->hasMany(Absentee::class);

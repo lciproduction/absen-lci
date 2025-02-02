@@ -54,21 +54,27 @@ class DashboardController extends Controller
 
 
 
-        // Mendapatkan data hari berdasarkan nama hari yang diterjemahkan
-        $day = Day::where('name', $today)->first();
 
 
         // Mencari siswa yang mempunyai hari wajib di hari ini namun tidak hadir
-        $studentsAbsent = Student::whereHas('days', function ($query) use ($day) {
-            $query->where('day_id', $day->id);
-        })->whereDoesntHave('attendances', function ($query) use ($day) {
-            $query->where('day_id', $day->id)
-                ->whereDate('created_at', today());
-        })->get();
+        $allStudents = Student::pluck('id')->toArray();
 
+        // Ambil siswa yang sudah mengisi absensi hari ini
+        $studentsPresent = Attendance::whereDate('created_at', Carbon::today())
+            ->pluck('student_id')
+            ->toArray();
+
+        // Cari siswa yang tidak mengisi absensi
+        $studentsAbsent = array_diff($allStudents, $studentsPresent);
+
+
+
+        // Jika Anda ingin mendapatkan objek siswa, Anda bisa menggunakan:
+        $absentStudents = Student::whereIn('id', $studentsAbsent)->get();
+        // dd($absentStudents);
         // dd($studentsAbsent);
 
 
-        return view('dashboard', compact('hadir', 'sakit', 'izin', 'attendances', 'studentsAbsent'));
+        return view('dashboard', compact('hadir', 'sakit', 'izin', 'attendances', 'absentStudents'));
     }
 }
