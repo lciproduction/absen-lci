@@ -17,25 +17,23 @@
 
         function handleStatusChange() {
             const statusValue = status.value;
-
-            console.log("statusValue", statusValue);
             hideAll();
             switch (statusValue) {
-                case 'hadir':
+                case 'AbsenHadir':
                     showLocation();
                     break;
 
-                case 'pulang':
-                    showPulang();
+                case 'AbsenPulang':
+                    showLocationPulang();
                     break;
 
 
-                case 'izin':
+                case 'Izin':
                     showPermit();
                     break;
 
 
-                case 'sakit':
+                case 'Sakit':
                     showSick();
                     break;
                 default:
@@ -44,20 +42,20 @@
         }
 
         function hideAll() {
-            $('#fileUpload, #permit, #sendHadir, #sendPulang, #sendPermit, #sendSick, #toast-top-left')
+            $('#fileUpload, #permit, #AbsenHadir, #AbsenPulang, #sendPermit, #sendSick, #toast-top-left')
                 .hide();
             locationIframe.innerHTML = ''; // Clear iframe when status changes
         }
 
         function showLocation() {
-            $('#sendHadir').show(); // Show the WFO button correctly
-            initializeLocation('sendHadir');
+            $('#AbsenHadir').show(); // Show the WFO button correctly
+            initializeLocation();
         }
 
 
-        function showPulang() {
-            $('#sendPulang').show();
-            initializeLocation('sendPulang');
+        function showLocationPulang() {
+            $('#AbsenPulang').show();
+            initializeLocationPulang();
         }
 
         function showPermit() {
@@ -95,8 +93,35 @@
             };
         }
 
-        function initializeLocation(type) {
-            const btn = document.getElementById(type);
+        function initializeLocation() {
+            const btn = document.getElementById('AbsenHadir');
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const formData = {
+                        id: userId,
+                        role: roleId,
+                        latitude: latitude,
+                        longitude: longitude,
+                        status: type,
+                    };
+
+                    displayLocationIframe(latitude, longitude); // Show the map iframe
+
+                    btn.onclick = function() {
+                        sendFormData(formData);
+                    };
+                },
+                error => {
+                    console.error('Geolocation error:', error);
+                    $('#note-error').show();
+                }
+            );
+        }
+
+        function initializeLocationPulang() {
+            const btn = document.getElementById('AbsenPulang');
             navigator.geolocation.getCurrentPosition(
                 position => {
                     const latitude = position.coords.latitude;

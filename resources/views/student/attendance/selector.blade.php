@@ -3,10 +3,10 @@
     <x-input.select-input id="status" class="mt-1 w-full bg-[#ffffff] text-red-primary border-yellow-500 "
         type="text" name="status" required autofocus autocomplete="status">
         <option value="" disabled selected>Pilih Status Kehadiran</option>
-        <option value="hadir">Hadir </option>
-        <option value="pulang">Pulang </option>
-        <option value="izin">Izin</option>
-        <option value="sakit">Sakit</option>
+        <option value="AbsenHadir">Hadir </option>
+        <option value="AbsenPulang">Pulang </option>
+        <option value="Izin">Izin</option>
+        <option value="Sakit">Sakit</option>
     </x-input.select-input>
 </div>
 

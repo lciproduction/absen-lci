@@ -19,9 +19,9 @@
                     <span class="loading loading-spinner text-primary hidden" id="loading"></span>
 
                     <!-- Buttons for Absen Masuk (Hadir) and Absen Pulang -->
-                    <x-button.primary-button id="sendHadir" class="mt-3 hidden">Absen Hadir
+                    <x-button.primary-button id="AbsenHadir" class="mt-3 hidden">Absen Hadir
                     </x-button.primary-button>
-                    <x-button.primary-button id="sendPulang" class="mt-3 hidden">Absen Pulang</x-button.primary-button>
+                    <x-button.primary-button id="AbsenPulang" class="mt-3 hidden">Absen Pulang</x-button.primary-button>
 
 
                     <button id="sendPermit" class="mt-3 btn bg-[#ffad01] hover:bg-[#ffad01]/90 hidden text-white">Absen
