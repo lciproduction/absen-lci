@@ -5,8 +5,6 @@
             @hasrole('admin')
                 @include('partials.admin')
 
-
-
             @endrole
             @hasrole('student')
                 @include('partials.student')

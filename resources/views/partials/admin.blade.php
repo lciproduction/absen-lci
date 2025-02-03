@@ -34,7 +34,7 @@
                     </p>
                 </div>
                 <div class="flex items-center justify-center mt-4">
-                    <a href="{{ route('student.acara.karyawan') }}">
+                    <a href="{{ route('attendance.index') }}">
                         <x-button.primary-button class="ms-3" type="button">
                             Data Absensi
                         </x-button.primary-button>
