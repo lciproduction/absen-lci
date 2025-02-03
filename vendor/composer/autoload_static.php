@@ -222,8 +222,8 @@ class ComposerStaticInit4fd86aa38f857e23f13ac1a104c6eae8
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'ZipStream\\' => 
         array (
@@ -391,8 +391,8 @@ class ComposerStaticInit4fd86aa38f857e23f13ac1a104c6eae8
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -644,6 +644,7 @@ class ComposerStaticInit4fd86aa38f857e23f13ac1a104c6eae8
         'App\\Exports\\StudentExport' => __DIR__ . '/../..' . '/app/Exports/StudentExport.php',
         'App\\Exports\\SubjectExport' => __DIR__ . '/../..' . '/app/Exports/SubjectExport.php',
         'App\\Exports\\TeacherExport' => __DIR__ . '/../..' . '/app/Exports/TeacherExport.php',
+        'App\\Http\\Controllers\\AcaraController' => __DIR__ . '/../..' . '/app/Http/Controllers/AcaraController.php',
         'App\\Http\\Controllers\\Admin\\ScheduleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ScheduleController.php',
         'App\\Http\\Controllers\\Admin\\SettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SettingController.php',
         'App\\Http\\Controllers\\Admin\\StudentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/StudentController.php',
@@ -660,6 +661,7 @@ class ComposerStaticInit4fd86aa38f857e23f13ac1a104c6eae8
         'App\\Http\\Controllers\\Auth\\PasswordResetLinkController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordResetLinkController.php',
         'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
+        'App\\Http\\Controllers\\ChangePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChangePasswordController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
@@ -672,9 +674,10 @@ class ComposerStaticInit4fd86aa38f857e23f13ac1a104c6eae8
         'App\\Imports\\StudentImport' => __DIR__ . '/../..' . '/app/Imports/StudentImport.php',
         'App\\Imports\\SubjectImport' => __DIR__ . '/../..' . '/app/Imports/SubjectImport.php',
         'App\\Imports\\TeacherImport' => __DIR__ . '/../..' . '/app/Imports/TeacherImport.php',
+        'App\\Models\\Absentee' => __DIR__ . '/../..' . '/app/Models/Absentee.php',
+        'App\\Models\\Acara' => __DIR__ . '/../..' . '/app/Models/Acara.php',
         'App\\Models\\Agenda' => __DIR__ . '/../..' . '/app/Models/Agenda.php',
         'App\\Models\\Attendance' => __DIR__ . '/../..' . '/app/Models/Attendance.php',
-        'App\\Models\\Day' => __DIR__ . '/../..' . '/app/Models/Day.php',
         'App\\Models\\Schedule' => __DIR__ . '/../..' . '/app/Models/Schedule.php',
         'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\Student' => __DIR__ . '/../..' . '/app/Models/Student.php',
@@ -820,7 +823,6 @@ class ComposerStaticInit4fd86aa38f857e23f13ac1a104c6eae8
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
-        'Database\\Seeders\\DaysTableSeeder' => __DIR__ . '/../..' . '/database/seeders/DaysTableSeeder.php',
         'Database\\Seeders\\RoleSeeder' => __DIR__ . '/../..' . '/database/seeders/RoleSeeder.php',
         'Database\\Seeders\\StudentSeeder' => __DIR__ . '/../..' . '/database/seeders/StudentSeeder.php',
         'Database\\Seeders\\TeacherSeeder' => __DIR__ . '/../..' . '/database/seeders/TeacherSeeder.php',

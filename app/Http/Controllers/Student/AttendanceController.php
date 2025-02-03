@@ -20,7 +20,13 @@ class AttendanceController extends Controller
 
     public function store(Request $request)
     {
+
         $student = Student::findOrFail($request->id);
+
+
+
+
+
         $coord = Setting::first();
         $parts = explode(',', $coord->coordinate);
         $centerLat = (float) trim($parts[0]);
@@ -29,6 +35,8 @@ class AttendanceController extends Controller
         $today = Carbon::today();
         $currentTime = Carbon::now();
         $note = null;
+
+
 
 
         // Log::info($request->all());
@@ -48,7 +56,8 @@ class AttendanceController extends Controller
         if (!$waktuAbsen) {
             return response()->json(['message' => 'Waktu absen tidak ditemukan']);
         }
-        Log::info($request->all());
+
+
 
         $timeInEarly = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_early);
         $timeInLate = Carbon::createFromFormat('H:i:s', $waktuAbsen->time_in_lately);
@@ -67,7 +76,7 @@ class AttendanceController extends Controller
         $status = '';
         $message = '';
 
-        Log::info($request->all());
+
 
         // Proses absensi user lain berdasarkan status
         switch ($request->status) {
@@ -107,9 +116,10 @@ class AttendanceController extends Controller
 
                 $existingAttendancePulang = Attendance::where('student_id', $student->id)
                     ->whereDate('created_at', $today)
-                    ->whereIn('status', 'Absen Pulang')
+                    ->where('status', 'Absen Pulang')
                     ->orWhere('status', 'like', '%(Pulang Terlambat)%')
                     ->first();
+
 
                 if ($existingAttendancePulang) {
                     return response()->json(['message' => 'Anda sudah melakukan absen pulang hari ini']);

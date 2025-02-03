@@ -69,7 +69,7 @@
                 @endif
 
                 <h4 class="text-xl font-bold px-5">Personal Info</h4>
-                <x-form action="{{ route('profile.update') }}" enctype="multipart/form-data" class="px-5">
+                <x-form action="{{ route('student.profile.update') }}" enctype="multipart/form-data" class="px-5">
                     @csrf
                     <input type="hidden" name="oldImage" value="{{ Auth::user()->student->photo }}">
                     <div class="mt-4">

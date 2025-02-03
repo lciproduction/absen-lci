@@ -5,7 +5,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div>
-                <a href="{{ route('student.index') }}">
+                <a href="{{ route('karyawan.index') }}">
                     <button class="btn bg-red-primary text-white">
                         <i class="fa-solid fa-arrow-left"></i>
                         Kembali
@@ -15,7 +15,7 @@
                     class="static bg-gradient-to-tr from-red-primary to-red-secondary shadow-lg border-4 border-white mx-auto mt-5">
 
 
-                    <x-form action="{{ route('student.store') }}" class="md:grid md:grid-cols-2 gap-4"
+                    <x-form action="{{ route('karyawan.store') }}" class="md:grid md:grid-cols-2 gap-4"
                         enctype="multipart/form-data">
                         @csrf
 

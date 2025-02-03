@@ -1,5 +1,5 @@
 <footer
-    class="footer footer-center bg-gradient-to-t from-red-primary to-red-secondary  border-t-2 border-red-primary text-white p-10 mb-10 lg:mb-0">
+    class="footer  footer-center bg-gradient-to-t from-red-primary to-red-secondary  border-t-2 border-red-primary text-white p-10 mb-10 lg:mb-0">
     <aside>
         <img src="{{ asset('assets/home/logo.png') }}" alt="logo" class="w-32"
             style="filter: drop-shadow(1px 1px 1px #ffff)">

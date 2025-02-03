@@ -127,7 +127,7 @@
                             const longitude = position.coords.longitude;
                             const formData = {
                                 id: userId,
-                                role: roleId,
+                                role: 3,
                                 latitude: latitude,
                                 longitude: longitude,
                                 status: "sendHadir",
@@ -135,7 +135,7 @@
 
                             displayLocationIframe(latitude, longitude); // Show the map iframe
 
-                            console.log("Latitude: " + latitude);
+
                             $('#skeletonMap').hide();
 
                             $('#AbsenHadir').show();
@@ -165,16 +165,19 @@
                             const longitude = position.coords.longitude;
                             const formData = {
                                 id: userId,
-                                role: roleId,
+                                role: 3,
                                 latitude: latitude,
                                 longitude: longitude,
                                 status: "sendPulang",
                             };
 
+                            console.log("Form Data: ", formData);
+
                             displayLocationIframe(latitude, longitude); // Show the map iframe
 
                             $('#skeletonMap').hide();
                             $('#AbsenPulang').show();
+
                             btn.onclick = function() {
                                 sendFormData(formData);
                             };
@@ -182,6 +185,8 @@
                         error => {
                             console.error('Geolocation error:', error);
                             $('#note-error').show();
+                        }, {
+                            maximumAge: 600_000
                         }
                     );
                 } else {
@@ -218,7 +223,7 @@
 
             function displayLocationIframe(latitude, longitude) {
 
-                console.log("Latitude: " + latitude + " Longitude: " + longitude);
+                // console.log("Latitude: " + latitude + " Longitude: " + longitude);
                 const googleMapsUrl =
                     `https://www.google.com/maps?q=${latitude},${longitude}&hl=es;z=14&output=embed`;
                 locationIframe.innerHTML =
@@ -227,6 +232,7 @@
 
             function sendFormData(data, isFile = false) {
                 hideAll();
+                // console.log("Data: ", data);
                 $('#loading').show();
                 $.ajax({
                     url: apiUrl,
@@ -236,7 +242,7 @@
                     contentType: isFile ? false : 'application/x-www-form-urlencoded; charset=UTF-8',
 
                     success: function(response) {
-                        console.log('Response:', response); // Log response
+                        // console.log('Response:', response); // Log response
                         $('#notif').text(response.message);
                         $('#toast-top-left').addClass("block").removeClass("hidden").show();
                     },
@@ -260,14 +266,14 @@
 
             const a = navigator.geolocation;
 
-            console.log(a);
+            // console.log(a);
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition)
             }
         }
 
         function showPosition(position) {
-            console.log("Latitude: " + position.coords.latitude);
+            // console.log("Latitude: " + position.coords.latitude);
             x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords
                 .longitude;
         }

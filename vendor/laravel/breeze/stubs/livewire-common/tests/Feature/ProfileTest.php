@@ -19,8 +19,8 @@ class ProfileTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSeeVolt('profile.update-profile-information-form')
-            ->assertSeeVolt('profile.update-password-form')
+            ->assertSeeVolt('student.profile.update-profile-information-form')
+            ->assertSeeVolt('student.profile.update-password-form')
             ->assertSeeVolt('profile.delete-user-form');
     }
 
@@ -30,7 +30,7 @@ class ProfileTest extends TestCase
 
         $this->actingAs($user);
 
-        $component = Volt::test('profile.update-profile-information-form')
+        $component = Volt::test('student.profile.update-profile-information-form')
             ->set('name', 'Test User')
             ->set('email', 'test@example.com')
             ->call('updateProfileInformation');
@@ -52,7 +52,7 @@ class ProfileTest extends TestCase
 
         $this->actingAs($user);
 
-        $component = Volt::test('profile.update-profile-information-form')
+        $component = Volt::test('student.profile.update-profile-information-form')
             ->set('name', 'Test User')
             ->set('email', $user->email)
             ->call('updateProfileInformation');

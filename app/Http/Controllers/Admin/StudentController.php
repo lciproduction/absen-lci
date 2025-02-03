@@ -28,71 +28,23 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-
-            // Ambil data dari tabel students
             $students = Student::select(['id', 'name', 'email', 'divisi']);
-            // Cek apakah ada input divisi untuk filtering
-            if ($request->has('divisi') && $request->input('divisi') != 'All' && $request->input('divisi') != null) {
-                $divisi = $request->input('divisi');
-                $students->where('divisi', $divisi); // Filter berdasarkan divisi
-            }
 
             return DataTables::of($students)
                 ->addIndexColumn() // Menambahkan nomor urut
-                ->addColumn('nama_mahasiswa', function ($row) {
-
-                    return $row->name;
-                })
-                ->addColumn('email', function ($row) {
-                    return $row->email;
-                })
-                ->addColumn('divisi', function ($row) {
-                    // Menampilkan rombel statis atau sesuai relasi jika ada
-                    return $row->divisi; // Gantilah dengan nilai terkait jika ada
-                })
                 ->addColumn('action', function ($row) {
-                    // Action bisa berupa tombol edit atau delete
-                    $editUrl = route('student.edit', $row->id); // Pastikan route edit sudah ada
-                    $deleteUrl = route('student.destroy', $row->id); // Pastikan route delete sudah ada
-
-                    return '<a href="' . $editUrl . '" class="btn btn-sm btn-primary">Edit</a>
-                        <form action="' . $deleteUrl . '" method="POST" style="display:inline;">
+                    return '<a href="' . route('karyawan.edit', $row->id) . '" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="' . route('karyawan.destroy', $row->id) . '" method="POST" style="display:inline;">
                             ' . csrf_field() . '
                             ' . method_field('DELETE') . '
                             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">Delete</button>
                         </form>';
                 })
-                ->rawColumns(['action']) // Membuat kolom action menampilkan HTML
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
-
-
-
-        // Data universitas yang akan ditampilkan di form filter atau lainnya
-        $university = [
-            ['id' => 1, 'name' => 'Universitas Indonesia'],
-            ['id' => 2, 'name' => 'Universitas Udayana'],
-            ['id' => 3, 'name' => 'Universitas Diponegoro'],
-            ['id' => 4, 'name' => 'Universitas Hasanuddin'],
-            ['id' => 5, 'name' => 'Universitas Brawijaya'],
-            ['id' => 5, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
-            ['id' => 5, 'name' => 'Universitas Negeri Jakarta'],
-            ['id' => 5, 'name' => 'President University'],
-            ['id' => 5, 'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'],
-            ['id' => 5, 'name' => 'Universitas Widyatama'],
-            ['id' => 5, 'name' => 'Universitas Pembangunan Jaya'],
-            ['id' => 5, 'name' => 'Universitas Mercu Buana'],
-            ['id' => 5, 'name' => 'Universitas Gunadarma'],
-            ['id' => 5, 'name' => 'Universitas Pendidikan Indonesia'],
-            ['id' => 5, 'name' => 'UPN Veteran Jakarta'],
-            ['id' => 5, 'name' => 'Universitas Airlangga'],
-            ['id' => 5, 'name' => 'Universitas Padjadjaran'],
-            ['id' => 5, 'name' => 'Universitas Katolik Parahyangan'],
-            ['id' => 5, 'name' => 'Universitas Negeri Malang'],
-        ];
-
-        return view('dashboard.student.index', compact('university'));
+        return view('dashboard.student.index'); // Ganti dengan view yang sesuai
     }
 
 
@@ -102,11 +54,6 @@ class StudentController extends Controller
      */
     public function create()
     {
-        // $grades = Grade::where('status', 1)->pluck('name', 'id');
-        // $majors = Major::where('status', 1)->pluck('acronym', 'id');
-        // $groups = Group::where('status', 1)->pluck('number', 'id');
-
-        // $days = Day::all();  // Ambil daftar hari dari tabel days
 
         // Daftar Divisi
         $divisions = [
@@ -117,30 +64,6 @@ class StudentController extends Controller
             ['id' => 5, 'name' => 'Social Media Specialist'],
         ];
 
-        // $university = [
-        //     ['id' => 1, 'name' => 'Universitas Indonesia'],
-        //     ['id' => 2, 'name' => 'Universitas Udayana'],
-        //     ['id' => 3, 'name' => 'Universitas Diponegoro'],
-        //     ['id' => 4, 'name' => 'Universitas Hasanuddin'],
-        //     ['id' => 5, 'name' => 'Universitas Brawijaya'],
-        //     ['id' => 6, 'name' => 'Universitas Muhammadiyah Yogyakarta'],
-        //     ['id' => 7, 'name' => 'Universitas Negeri Jakarta'],
-        //     ['id' => 8, 'name' => 'President University'],
-        //     [
-        //         'id' => 9,
-        //         'name' => 'Universitas Pembangunan Nasional Veteran Jakarta'
-        //     ],
-        //     ['id' => 10, 'name' => 'Universitas Widyatama'],
-        //     ['id' => 11, 'name' => 'Universitas Pembangunan Jaya'],
-        //     ['id' => 12, 'name' => 'Universitas Mercu Buana'],
-        //     ['id' => 13, 'name' => 'Universitas Gunadarma'],
-        //     ['id' => 14, 'name' => 'Universitas Pendidikan Indonesia'],
-        //     ['id' => 15, 'name' => 'UPN Veteran Jakarta'],
-        //     ['id' => 16, 'name' => 'Universitas Airlangga'],
-        //     ['id' => 17, 'name' => 'Universitas Padjadjaran'],
-        //     ['id' => 18, 'name' => 'Universitas Katolik Parahyangan'],
-        //     ['id' => 19, 'name' => 'Universitas Negeri Malang'],
-        // ];
 
         return view('dashboard.student.create', compact('divisions'));
     }
@@ -197,16 +120,20 @@ class StudentController extends Controller
         ]);
 
 
-        return redirect('/student')->with('success', 'Siswa Berhasil Ditambahkan!');
+        return redirect('/karyawan')->with('success', 'Siswa Berhasil Ditambahkan!');
     }
 
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit($student)
     {
+        $student = Student::find($student);
+        // dd($student);
+
         // $user = $student->user->password;
+
 
         // dd($user);
 
@@ -248,8 +175,10 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request,  $student)
     {
+        $student = Student::findOrFail($student);
+
         $rules = [
             'name' => 'required|string',
             'username' => 'required|string',
@@ -291,21 +220,24 @@ class StudentController extends Controller
             'jabatan' => $validatedData['jabatan'],
         ]);
 
-        return redirect('/student')->with('success', 'Siswa Berhasil Diupdate');
+        return redirect('/karyawan')->with('success', 'Siswa Berhasil Diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy($student)
     {
+        $student = Student::findOrFail($student);
+        // dd($student);
+
         if ($student->photo) {
             Storage::delete('student/photo/' . $student->photo);
         }
         $student->user->delete();
         Student::destroy($student->id);
 
-        return redirect('/student')->with('success', 'Siswa Berhasil Dihapus!');
+        return redirect('/karyawan')->with('success', 'Siswa Berhasil Dihapus!');
     }
 
     public function import(Request $request): RedirectResponse

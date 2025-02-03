@@ -55,7 +55,7 @@ class ProfileController extends Controller
         // Update student data with validated data
         $student->update($validatedData);
 
-        return Redirect::route('profile.edit')->with('success', 'Profile updated successfully.');
+        return Redirect::route('student.siswa.profile.edit')->with('success', 'Profile updated successfully.');
     }
 
 

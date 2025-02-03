@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Attendance;
-use App\Models\Day;
+
 use App\Models\Student;
 use Illuminate\Http\Request;
 

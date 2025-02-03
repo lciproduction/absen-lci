@@ -62,17 +62,18 @@
                 <div class="w-full">
                     <div>
                         <p class="text-left text-[#3674B5] font-semibold">
-                            Berikut adalah catatan lengkap kehadiran Anda. Pastikan untuk memeriksa dan menjaga
-                            kehadiran
-                            Anda tetap konsisten.
+                            Jangan lewatkan kesempatan untuk menjadi bagian dari acara-acara menarik yang akan datang!
+                            Di bawah ini, Anda akan menemukan tabel lengkap yang menampilkan semua acara yang akan
+                            diselenggarakan, termasuk tanggal dan deskripsi. Pastikan untuk memeriksa jadwal yang Anda
+                            minati. Bergabunglah dengan kami dan jadikan setiap momen berharga !
                         </p>
                     </div>
                     <div class="flex items-center justify-center mt-4">
-                        <a href="{{ route('student.history.index') }}">
+                        <a href="{{ route('student.acara.karyawan') }}">
                             <button
                                 class="ms-3 btn bg-gradient-to-tr from-red-primary to-red-secondary text-white hover:bg-red-secondary/80 hover:text-white"
                                 type="button">
-                                Riwayat Kehadiran
+                                Agenda Kami
                             </button>
                         </a>
                     </div>
