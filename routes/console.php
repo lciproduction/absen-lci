@@ -8,4 +8,4 @@ use Illuminate\Support\Facades\Schedule;
 //     $this->comment(Inspiring::quote());
 // })->purpose('Display an inspiring quote')->hourly();
 
-Schedule::command('mark:absentees')->dailyAt('17:50')->timezone('Asia/Jakarta');
+Schedule::command('mark:absentees')->dailyAt('18:00')->timezone('Asia/Jakarta');
