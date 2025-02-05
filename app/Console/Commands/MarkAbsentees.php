@@ -33,6 +33,13 @@ class MarkAbsentees extends Command
     {
         $today = Carbon::today();
 
+        // Check if today is a weekend (Saturday or Sunday)
+        if ($today->isWeekend()) {
+            $this->info('Skipping marking absentees as today is a weekend.');
+            return;
+        }
+
+
         // Ambil semua student
         $students = Student::all();
 
